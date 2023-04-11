@@ -1,0 +1,89 @@
+.container{
+  padding: 0.5rem 4rem 1rem 4rem;
+  min-height: 100vh;
+}
+
+.titleCategory{
+  display: inline-block;
+  margin: 1rem 1rem 1rem 1rem;
+  font-size: 25px;
+}
+
+
+.verDetalle{
+  cursor: pointer;
+  display: inline-block;
+  margin: 1rem 0.2rem 1rem 0.2rem;
+  color:white;
+  background:#3483FA;
+  border:0px;
+  border-radius: 3%;
+  width:95%;
+  height:45px;
+  font-size: 15px;
+}
+
+img{
+  padding: 0.5rem;
+}
+
+
+
+#sinResultados
+{
+  font-size: 27px;
+  text-align: center;
+  background-color: white;
+  width: 100%;
+}
+
+ion-icon{
+  padding: 0px 10px 0px 10px;
+  font-size: 17px;
+}
+ 
+select{
+	cursor: pointer;
+  padding: 7px 10px;
+  height: 42px;
+  outline: 0; 
+  border: 0;
+	border-radius: 0;
+	background: #f0f0f0;
+	color: #7b7b7b;
+	font-size: 1em;
+	color: #999;
+	font-family: 'Quicksand', sans-serif;
+	border:2px solid rgba(0,0,0,0.2);
+  border-radius: 12px;
+  position: relative;
+  transition: all 0.25s ease;
+}
+ 
+.content-select select:hover{
+	background: #B1E8CD;
+}
+
+.content-select:hover i{
+	margin-top: 3px;
+}
+
+#response
+{
+  max-width: 16rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,94 @@
+#header{
+    --background: #121212;
+    --destacado: #1f1f1f;
+}
+
+.nav {
+    box-shadow: 0px 1px 6px -1px rgba(0, 0, 0, 0.79);
+    -webkit-box-shadow: 0px 1px 6px -1px rgba(0, 0, 0, 0.79);
+    -moz-box-shadow: 0px 1px 6px -1px rgba(0, 0, 0, 0.79);
+}
+
+.nav_toggle {
+    position: absolute;
+    cursor: pointer;
+    margin: 0rem 1rem;
+    right: 0;
+}
+
+.nav_toggle svg {
+    width: 1.5rem;
+    fill: #ffffff;
+}
+
+.nav_toggle .close {
+    display: none;
+    margin-top: 15px
+}
+
+.nav_toggle .menu {
+    margin-top: 20px
+}
+
+.nav_checkbox {
+    display: none;
+
+}
+
+.nav_menu {
+    color: rgb(255, 255, 255);
+    background-color: var(--destacado);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    padding: 1rem;
+
+}
+
+.nav_menu li {
+    list-style: none;
+    display: none;
+}
+
+.nav_menu li:first-child {
+    margin-right: auto;
+    display: block;
+}
+
+.nav_menu a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 1.2rem;
+}
+
+.nav_menu svg {
+    width: 1.5rem;
+    fill: #2a324b;
+}
+
+#nav_checkbox:checked~ul.nav_menu li {
+    display: block;
+}
+
+#nav_checkbox:checked~label.nav_toggle .close {
+    display: block;
+}
+
+#nav_checkbox:checked~label.nav_toggle .menu {
+    display: none;
+}
+
+@media only screen and (min-width: 560px) {
+    .nav_toggle {
+        display: none;
+    }
+
+    .nav_menu {
+        flex-direction: row;
+    }
+
+    .nav_menu li {
+        display: block;
+    }
+}
