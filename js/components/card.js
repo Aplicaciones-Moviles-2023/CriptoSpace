@@ -1,4 +1,4 @@
-export const Card = (id, nombre, precio, image,clase) => `
+export const Card = (id, nombre, precio, image, clase) => `
     <div class = "card ${clase}">
         <img src = ${image}> 
         <div class="texto">
@@ -7,7 +7,8 @@ export const Card = (id, nombre, precio, image,clase) => `
         </div>
         <div id="buttonCard">
             <button class="verDetalle" id=${id}
-            data-id = ${id}>
+            data-id = ${id}
+            onclick="location.href='../view/detail.html?crypto=${id}'">
                 Ver detalle
             </button>
         </div> 
