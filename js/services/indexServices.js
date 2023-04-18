@@ -1,15 +1,16 @@
 const urlBase = "https://api.coingecko.com/api/v3";
 
-export const getCriptoAll = () => {
-    //var url = `${urlBase}/coins/markets?vs_currency=usd&per_page=50&page=1&sparkline=false&locale=en' \ -H 'accept: application/json'`;
+export const getCriptoAll = (callback) => {
+    var url = `${urlBase}/coins/markets?vs_currency=usd&per_page=50&page=1&sparkline=false' \ -H 'accept: application/json'`;
     //Esto trae desde la API
-    //fetch(url)
-    //    .then(response => response.json())
-    //    .then(body => {
-    //    callback(body)
-    //})
+    fetch(url)
+        .then(response => response.json())
+        .then(body => {
+        callback(body)
+    })
 
     //Datos puestos a mano
+    /*
     return [
       {
         "id": "bitcoin",
@@ -1464,4 +1465,5 @@ export const getCriptoAll = () => {
         "last_updated": "2023-04-17T20:01:35.176Z"
       }
     ]
+    */
 }
