@@ -4,7 +4,7 @@ export const Footer = () => {
         <div class="grupo-1">
             <div class="box">
                 <figure>
-                    <a href="#">
+                    <a href="index.html">
                         <img src="../../img/logo.png">
                     </a>
                 </figure>

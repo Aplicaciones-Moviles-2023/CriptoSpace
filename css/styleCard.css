@@ -1,53 +1,73 @@
-
-
-  .card_up {
-    border: 1px solid rgb(0, 217, 100);
-    background-color: rgb(20, 43, 31);
-  }
+.card_up {
+  border: 1px solid rgb(0, 217, 100) !important;
+  background-color: rgb(20, 43, 31);
+}
   
-  .card_down {
-    border: 1px solid rgb(255, 0, 0);
-    background-color: rgb(39, 12, 12);
-  }
-
-
-.items{
-	padding: 20px;
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
+.card_down {
+  border: 1px solid rgb(255, 0, 0) !important;
+  background-color: rgb(39, 12, 12);
 }
 
-.items .card{
-	width: 20%;
-    word-wrap: break-word;    
-    color: white;
-    border: 1px;
-    padding: 0.1rem 1rem 0.2rem 1rem;
-    margin: 0.2rem 1rem 1rem 1rem;
-    border-radius: 5%;
-    box-shadow: 0 0 20px rgb(75, 74, 74);
-    text-align: center;
+img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  margin: auto;
+  padding: 10px;
 }
 
-.card .texto{
-  height: 40px;
-  overflow: hidden;
+.img{
+  height: 60%;
+}
+
+.card{
+  word-wrap: break-word;    
+  max-height: 100%; 
+  color: white;
+  border: 1px;
+  padding: 0.1rem 1rem 0.2rem 1rem;
+  margin: 0.2rem 1rem 1rem 1rem;
+  border-radius: 5%;
+  box-shadow: 0 0 20px rgb(75, 74, 74);
+  text-align: center;
+}
+
+
+.buttonCard{
+  display: block;
+  height: 18%;
+  padding: 0px 0px;
+}
+
+.btn{
+  cursor: pointer;
+  display: inline-block;
+  color:white;
+  background:#3483FA;
+  border:0px;
+  border-radius: 7%;
+  width:95%;
+  display: block;
+  font-size: 15px;
+  padding: 0px !important;
 }
 
 .precioCard{
  display: block;
 }
 
-@media screen and (max-width: 768px){
-	.items .card{
-    width: 33%;
+@media only screen and (min-width: 560px) {
+	.card{
+		width: 40%;
 	}
 }
 
-@media only screen and (max-width: 560px) {
-	.items .card{
-		width: 100%;
+@media screen and (min-width: 768px){
+	.card{
+    width: 20%;
 	}
+}
+
+.texto{
+  word-wrap: break-word !important;  
 }
