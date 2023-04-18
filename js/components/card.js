@@ -12,5 +12,9 @@ export const Card = (id, nombre, precio, image, clase) => `
                 Ver detalle
             </button>
         </div> 
+        <button class="fav" id=${id}
+            data-id = ${id}>
+                Favorito
+            </button>
     </div>
 `
