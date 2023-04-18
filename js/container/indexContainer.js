@@ -14,6 +14,9 @@ var _header = document.getElementById("header");
 var _footer = document.getElementById("footer");
 var _sinResultados = document.getElementById("sinResultados");
 var clase;
+var nameSearch = getQueryParams().nameSearch;
+
+
 
 //Funcion encargada de mostrar los items en cards
 function displayItems(items)
@@ -32,7 +35,7 @@ function displayItems(items)
                     clase = "card_down";
                 }
 
-                _items.innerHTML +=Card(item.ID, item.name, item.current_price, item.image, clase) 
+                _items.innerHTML +=Card(item.id, item.name, item.current_price, item.image, clase) 
             });
     
             //var buttons = document.querySelectorAll('.verDetalle');
@@ -88,6 +91,17 @@ function unsortJSON(data){
     }
   }
 
+
+
+  function simulateEnter() {
+    var input = document.getElementById("searchButton");
+    var event = new Event("keydown");
+    event.key = "Enter";
+    event.keyCode = 13;
+    event.which = 13;
+    input.dispatchEvent(event);
+  }
+
 export const IndexRender = () => {
     _header.innerHTML=Header();
     _footer.innerHTML=Footer();
@@ -98,17 +112,35 @@ export const IndexRender = () => {
     var selectFilter = document.getElementById("selectFilter");
     var buttonMoreResults = document.getElementById("MostrarMasButton")
     
-    hideElement(buttonMoreResults)
-
-    var itemsOriginalCompleto = getCriptoAll()
-    displayItems(itemsOriginalCompleto);
-
     //Se definen las variables necesarias
     var lastItemsFilter = itemsOriginalCompleto;
     var lastItemsSearch = itemsOriginalCompleto;
     var lastItems = itemsOriginalCompleto;
     var lastTextSearch;
     var cantResults = 10
+    hideElement(buttonMoreResults)
+
+    var itemsOriginalCompleto = getCriptoAll()
+    displayItems(itemsOriginalCompleto);
+
+    if(!(nameSearch === undefined))
+    {
+        var searchName = document.getElementById("txtInput")
+        searchName.value = nameSearch
+
+        lastTextSearch = nameSearch
+        lastItems = itemsOriginalCompleto
+        lastItems = lastItems.filter(item => item.name.toLowerCase().includes(nameSearch.toLowerCase()))
+        if(lastItems.length>cantResults)
+        {
+            lastItems = lastItems.slice(0,cantResults)
+            buttonMoreResults.classList.remove("hide")
+        }
+        lastItemsFilter = lastItems
+        lastItemsSearch = lastItems
+        displayItems(lastItems);
+
+    }
 
     //Busqueda
     document.getElementById("searchButton").addEventListener('click', event => {
@@ -132,7 +164,7 @@ export const IndexRender = () => {
         {
             lastTextSearch = searchName
             lastItems = itemsOriginalCompleto
-            lastItems = lastItems.filter(item => item.name.toLowerCase().includes(lastTextSearch.toLowerCase()));
+            lastItems = lastItems.filter(item => item.name.toLowerCase().includes(lastTextSearch.toLowerCase() || item.id.toLowerCase().includes(lastTextSearch.toLowerCase())))
             if(lastItems.length>cantResults)
             {
                 lastItems = lastItems.slice(0,cantResults)
@@ -160,7 +192,6 @@ export const IndexRender = () => {
             displayItems(sortJSON(lastItems, order[0], order[1]));
         } 
     });
-
 
     //Filtros
     selectFilter.addEventListener('change', (event) => {
@@ -192,7 +223,6 @@ export const IndexRender = () => {
             displayItems(lastItemsFilter)
         }
     });
-
     
     buttonMoreResults.addEventListener('click', event => {
         hideElement(buttonMoreResults)
