@@ -229,7 +229,16 @@ export const IndexRender = () => {
             lastItemsFilter = lastItems
             lastItemsSearch = lastItems
             displayItems(lastItems);
-        });   
+        });
+
+
+        var buttons = document.querySelectorAll('.fav');
+            buttons.forEach(button => button.addEventListener('click', event => {
+                var id = event.target.getAttribute("data-id");
+                console.log(id)
+            }
+            ));
+
     })
 
          
