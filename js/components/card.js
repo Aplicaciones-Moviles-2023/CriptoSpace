@@ -8,9 +8,13 @@ export const Card = (id, nombre, precio, image, clase) => `
         <div id="buttonCard">
             <button class="verDetalle" id=${id}
             data-id = ${id}
-            onclick="location.href='../view/detail.html?crypto=${id}'">
+            onclick="location.href='../view/detail.html?id=${id}'">
                 Ver detalle
             </button>
         </div> 
+        <button class="fav" id=${id}
+            data-id = ${id}>
+                Favorito
+            </button>
     </div>
 `

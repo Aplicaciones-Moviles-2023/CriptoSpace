@@ -14,9 +14,15 @@ export const Header = () => {
             </svg>
         </label>
         <ul class="nav_menu">
-            <li><a href="#">
+            <li><a href="index.html">
                     Cripto Space
                 </a></li>
+            <li class="search">
+                <form id="myForm">
+                    <input type="text" placeholder="Buscar producto" id="txtInput">
+                    <label id="searchButton"> <ion-icon name="search-outline"></ion-icon> </label>
+                </form>
+            </li>
             <li><a href="#">Contacto</a></li>
         </ul>
     </nav>
@@ -24,24 +30,25 @@ export const Header = () => {
 }
 
 export const Search = () => {
-    document.getElementById("searchButton").addEventListener('click', event => {
-        var nombreProducto = document.getElementById("txtInput").value
-        window.open(`./index.html?nombreProducto=${nombreProducto}`,'_self');
-    });
-}
-
-export const eventSearch = () => {
-    var txtInput = document.getElementById('txtInput'); 
-    txtInput.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            window.open(`./index.html?nombreProducto=${txtInput.value}`,'_self');
-        }
-    });
-}
-
-
-
-
+    //    document.getElementById("form").addEventListener('submit', function(e){
+    //        e.preventDefault();
+    //        document.getElementById("searchButton").click()
+    //    });
+    }
+    
+    export const eventSearch = () => {
+        var txtInput = document.getElementById('myForm'); 
+        txtInput.addEventListener('submit', event => {
+            event.preventDefault()
+                document.getElementById("searchButton").click()
+        });
+        //var txtInput = document.getElementById('txtInput'); 
+        //txtInput.addEventListener('keypress', function (e) {
+        //    if (e.key === 'Enter') {
+        //        document.getElementById("searchButton").click()
+        //    }
+        //});
+    }
 
 
 
