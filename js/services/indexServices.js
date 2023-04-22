@@ -39,7 +39,6 @@ export const getCriptoAll = (order, callback) =>
         else {
             console.log('No se encontró el archivo en la caché');
             caches.open('cache').then(function(cache) {
-                
                 var url = `${urlBase}/coins/markets?vs_currency=usd${orderUrl}&per_page=${maxResult}&page=1&sparkline=false`;
 
                 var requestOptions = {
@@ -67,7 +66,7 @@ export const getCriptoAll = (order, callback) =>
 
 export const getCriptoBy = (search, order, callback) => {
     var url = `${urlBase}/search?query=${search}`;
-    
+
     var requestOptions = {
         method: 'GET',
         redirect: 'follow'
@@ -84,13 +83,12 @@ export const getCriptoBy = (search, order, callback) => {
             });
             
             criptos = criptos.toString()
+
             getCryptoById(criptos,order,(result)=>
             {
                 callback(result);
             })
-
             callback(result)
-        
         })
         .catch(error => console.log('error', error));
 }
@@ -105,8 +103,11 @@ export const getCryptoById = (cryptoId, order, callback) => {
         orderUrl = "&order=price_"+order;
     }
 
+    var urlIds = "&ids="+cryptoId;
+
     var key = `getCryptoById-${cryptoId}-${order}`
-    
+    console.log("KEEEEY")
+    console.log(key)
     //Intenta obtener el archivo desde la cache
     caches.match(key).then(function(response) {
         if (response) {
@@ -119,8 +120,8 @@ export const getCryptoById = (cryptoId, order, callback) => {
             console.log('No se encontró el archivo en la caché');
             caches.open('cache').then(function(cache) {
                 
-                var url = `${urlBase}/coins/markets?vs_currency=usd${orderUrl}&per_page=${maxResult}&page=1&sparkline=false`;                
-
+                var url = `${urlBase}/coins/markets?vs_currency=usd${orderUrl}${urlIds}&per_page=${maxResult}&page=1&sparkline=false`;                
+                console.log(url)
                 var requestOptions = {
                     method: 'GET',
                     redirect: 'follow'

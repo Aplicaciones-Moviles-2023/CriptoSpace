@@ -89,7 +89,7 @@ export const IndexRender = () => {
 
     //Busqueda
     document.getElementById("searchButton").addEventListener('click', event => {
-            
+        event.preventDefault()
         //Limpia los select
         selectOrder.selectedIndex  = 0;
         selectCategory.selectedIndex  = 0;
