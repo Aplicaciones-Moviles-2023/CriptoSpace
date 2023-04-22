@@ -4,7 +4,7 @@ import { Footer } from "../components/footer.js"
 import { Card } from "../components/card.js"
 import { itemListRoot } from "../components/itemListRoot.js"
 import { getQueryParams } from "../functions.js"
-import { getCriptoAll } from "../services/indexServices.js"
+import { getCriptoAll, getCriptoBy, getCriptoByCategory, GetCryptos} from "../services/indexServices.js"
 import { getCategories } from "../services/categoriesServices.js"
 
 
@@ -37,13 +37,6 @@ function displayItems(items)
 
                 _items.innerHTML +=Card(item.id, item.name, item.current_price, item.image, clase) 
             });
-    
-            //var buttons = document.querySelectorAll('.verDetalle');
-            //buttons.forEach(button => button.addEventListener('click', event => {
-            //    var id = event.target.getAttribute("data-id");
-            //    window.open(`./detalleProducto.html?id=${id}`,'_self');
-            //}
-            //));
         }
         else
         {
@@ -51,37 +44,6 @@ function displayItems(items)
             _sinResultados.innerHTML = "No se han encontrado resultados para los datos ingresados";
         }
     }
-
-//Se ordena un JSON
-function sortJSON(data, key, orden) {
-    return data.sort(function (a, b) {
-        var x = a[key],
-        y = b[key];
-
-        if (orden === 'asc') {
-            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-        }
-
-        if (orden === 'desc') {
-            return ((x > y) ? -1 : ((x < y) ? 1 : 0));
-        }
-    });
-}    
-
-
-function unsortJSON(data){
-
-    const entradas = Object.entries(data);
-
-    entradas.sort(() => Math.random() - 0.5);
-  
-    const objetoDesordenado = {};
-    for (let [propiedad, valor] of entradas) {
-      objetoDesordenado[propiedad] = valor;
-    }
-  
-    return objetoDesordenado;
-  }
 
   function hideElement(element)
   {
@@ -91,145 +53,212 @@ function unsortJSON(data){
     }
   }
 
+/*const Hola = (result) => {
+    console.log("holaaaaa")
+   console.log(result.coins)
+}
+GetCryptos("bitcoin",Hola)
+*/
+
+const GetCriptoAll = (result) => {
+    displayItems(result)
+}
+
+const GetCriptoBy = (result) =>
+{
+    displayItems(result);
+}
+
+const GetCriptoByCategory = (result)=>
+{
+    displayItems(result);
+}
+
 export const IndexRender = () => {
     _header.innerHTML=Header();
     _footer.innerHTML=Footer();
     eventSearch();
     
     var selectOrder = document.getElementById("selectOrder");
-    var order = selectOrder.value.split(",")
-    var selectFilter = document.getElementById("selectFilter");
-    var buttonMoreResults = document.getElementById("MostrarMasButton")
-    
-    //Se definen las variables necesarias
-    var lastItemsFilter;
-    var lastItemsSearch;
-    var lastItems;
-    var lastTextSearch;
-    var cantResults = 10
-    hideElement(buttonMoreResults)
-    var itemsOriginalCompleto;
+    var selectCategory = document.getElementById("selectCategory");
+    var search = "";
+    var order = "";
+    var category = ""
 
-    getCriptoAll((result)=>
-    {
-        itemsOriginalCompleto = result
-        lastItemsFilter = itemsOriginalCompleto;
-        lastItemsSearch = itemsOriginalCompleto;
-        lastItems = itemsOriginalCompleto;
-        cantResults = 10
-        hideElement(buttonMoreResults)
+    getCriptoAll(order, GetCriptoAll)
 
-        displayItems(itemsOriginalCompleto);
+    //Busqueda
+    document.getElementById("searchButton").addEventListener('click', event => {
+            
+        //Limpia los select
+        selectOrder.selectedIndex  = 0;
+        selectCategory.selectedIndex  = 0;
+        order = "";
 
-        if(!(nameSearch === undefined))
-        {
-            var searchName = document.getElementById("txtInput")
-            searchName.value = nameSearch
-    
-            lastTextSearch = nameSearch
-            lastItems = itemsOriginalCompleto
-            lastItems = lastItems.filter(item => item.name.toLowerCase().includes(nameSearch.toLowerCase()))
-            if(lastItems.length>cantResults)
-            {
-                lastItems = lastItems.slice(0,cantResults)
-                buttonMoreResults.classList.remove("hide")
-            }
-            lastItemsFilter = lastItems
-            lastItemsSearch = lastItems
-            displayItems(lastItems);
-    
+        search = document.getElementById("txtInput").value
+        
+        if(search === "")
+        {                
+            displayItems(result);
         }
+        else
+        {
+            getCriptoBy(search, order, GetCriptoBy)
+        }                
+    });
+
+
+    //Categorias
+    selectCategory.addEventListener('change', (event) => {
+
+        //Limpia el select de orden y el campo de busqueda
+        document.getElementById("txtInput").value = ""
+        selectOrder.selectedIndex  = 0;
+        order = "";
+        selectCategory = document.getElementById("selectCategory");
+         
+        //Ninguna
+        if(selectCategory.value === "todas")
+        {
+            category = ""
+            getCriptoAll(order, GetCriptoAll)
+        }
+        //Alguna
+        else{
+            category = selectCategory.value
+            getCriptoByCategory(selectCategory.value, order, GetCriptoByCategory)
+        }
+    });
+
+
+    //ORDEN
+    selectOrder.addEventListener('change', (event) => {
+        var selectOrder = document.getElementById("selectOrder");
+        var order = selectOrder.value.split(",")
+
+        if(order[1] === "Sin orden" && search === "" && category === "") 
+        {
+            getCriptoAll(order, GetCriptoAll)
+        }
+        
+        if(order[1] !== "Sin orden" && search !== "" && category !== "") 
+        {
+            order = "";
+            displayItems(result)
+        }
+
+        if (order[1] !== "Sin orden" && search !== "")
+        {
+            order = order[1]
+            getCriptoBy(search, order,(result)=>
+            {
+                displayItems(result);
+            })
+        }
+
+        if (order[1] !== "Sin orden" && category !== "")
+        {
+            order = order[1]
+            getCriptoByCategory(category, order,(result)=>
+            {
+                displayItems(result);
+            })
+        }
+
+        if (order[1] !== "Sin orden" && search == "" && category == "")
+        {
+            order = order[1]
+            getCriptoAll(order, GetCriptoAll)
+        }
+        
+        
+    });
+
+}
     
+    /*
+    getCriptoAll(order, result=>
+    {
+        console.log(result)
+        //Inicialmente se muestran todos los resultados
+        displayItems(result);
+        https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&category=decentralized-finance-defi&per_page=10&page=1&sparkline=false&locale=en
         //Busqueda
         document.getElementById("searchButton").addEventListener('click', event => {
-            var searchName = document.getElementById("txtInput").value
-        
-            //Se limpian los select
-            selectOrder.selectedIndex = 0;
-            selectFilter.selectedIndex = 0;
-    
-            //Busqueda SIN parametros (TODO)
-            if(searchName === "")
-            {
-                hideElement(buttonMoreResults)
-                lastItems = itemsOriginalCompleto
-                lastItemsFilter = itemsOriginalCompleto
-                lastItemsSearch = itemsOriginalCompleto
-                displayItems(lastItems);
+            
+            //Limpia los select
+            selectOrder.selectedIndex  = 0;
+            selectCategory.selectedIndex  = 0;
+            order = "";
+
+            search = document.getElementById("txtInput").value
+            
+            if(search === "")
+            {                
+                displayItems(result);
             }
-            //Busqueda CON parametros
             else
             {
-                lastTextSearch = searchName
-                lastItems = itemsOriginalCompleto
-                lastItems = lastItems.filter(item => item.name.toLowerCase().includes(lastTextSearch.toLowerCase() || item.id.toLowerCase().includes(lastTextSearch.toLowerCase())))
-                if(lastItems.length>cantResults)
+                getCriptoBy(search, order,(result)=>
                 {
-                    lastItems = lastItems.slice(0,cantResults)
-                    buttonMoreResults.classList.remove("hide")
-                }
-                lastItemsFilter = lastItems
-                lastItemsSearch = lastItems
-                displayItems(lastItems);
-            }
+                    displayItems(result);
+                })
+            }                
         });
-    
+
+        
+        
+
         //ORDEN
         selectOrder.addEventListener('change', (event) => {
             var selectOrder = document.getElementById("selectOrder");
             var order = selectOrder.value.split(",")
-            
-            hideElement(buttonMoreResults)
-    
-            if(order[0] === "Sin orden")
+
+            if(order[1] === "Sin orden" && search === "" && category === "") 
             {
-                displayItems(lastItems);
+                getCriptoAll((order, result)=>
+                {
+                    displayItems(result)
+                })
             }
-            else
+            
+            if(order[1] !== "Sin orden" && search !== "" && category !== "") 
             {
-                displayItems(sortJSON(lastItems, order[0], order[1]));
-            } 
+                order = "";
+                displayItems(result)
+            }
+
+            if (order[1] !== "Sin orden" && search !== "")
+            {
+                order = order[1]
+                getCriptoBy(search, order,(result)=>
+                {
+                    displayItems(result);
+                })
+            }
+
+            if (order[1] !== "Sin orden" && category !== "")
+            {
+                order = order[1]
+                getCriptoByCategory(category, order,(result)=>
+                {
+                    displayItems(result);
+                })
+            }
+            
+            
         });
-    
-        //Filtros
-        selectFilter.addEventListener('change', (event) => {
-            var selectFilter = document.getElementById("selectFilter");
-            
-            hideElement(buttonMoreResults)
-    
-            //Ninguno
-            if(selectFilter.value === "ninguno")
-            {
-                lastItemsFilter = lastItemsSearch
-                lastItems = lastItemsFilter
-                displayItems(lastItemsFilter)
-            }
+
+
         
-            //Balance Positivo
-            if(selectFilter.value === "balance positivo")
-            {
-                lastItemsFilter = lastItemsSearch.filter(item => item.price_change_24h>0)
-                lastItems = lastItemsFilter
-                displayItems(lastItemsFilter)
-            }
-            
-            //Balance Negativo
-            if(selectFilter.value === "balance negativo")
-            {    
-                lastItemsFilter = lastItemsSearch.filter(item => item.price_change_24h<0)
-                lastItems = lastItemsFilter
-                displayItems(lastItemsFilter)
-            }
-        });
-        
-        buttonMoreResults.addEventListener('click', event => {
-            hideElement(buttonMoreResults)
-            lastItems = itemsOriginalCompleto
-            lastItems = lastItems.filter(item => item.name.toLowerCase().includes(lastTextSearch.toLowerCase()));
-            lastItemsFilter = lastItems
-            lastItemsSearch = lastItems
-            displayItems(lastItems);
-        });
+        //buttonMoreResults.addEventListener('click', event => {
+        //    hideElement(buttonMoreResults)
+        //    lastItems = itemsOriginalCompleto
+        //    lastItems = lastItems.filter(item => item.name.toLowerCase().includes(lastTextSearch.toLowerCase()));
+        //    lastItemsFilter = lastItems
+        //    lastItemsSearch = lastItems
+        //    displayItems(lastItems);
+        //});
 
 
         var buttons = document.querySelectorAll('.fav');
@@ -238,10 +267,10 @@ export const IndexRender = () => {
                 console.log(id)
             }
             ));
-
-    })
-
-         
+        })
+     */
 
 
-}
+
+
+
