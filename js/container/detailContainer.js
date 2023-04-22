@@ -20,11 +20,23 @@ export const DetailRender = () => {
     _footer.innerHTML=Footer();
     eventSearch();
     var id = getQueryParams().id
-
-    console.log('cargo el DOM de la pagina de detalles de la crypto')
+    /*
+    var historial = localStorage.getItem("historial").split(',')
+    console.log(historial)
+    if(historial.length <= 5)
+    {
+        historial.push("nuevo final")
+    }
+    else{
+        historial.unshift("Principio")
+    }
+    var contentHistorial = ['hola','jojo']
+    contentHistorial.unshift("jaja")
+    localStorage.setItem("historial", contentHistorial)
+    console.log("holaa")
+    */
     getDetailCripto(id, (response) =>{
     
-    console.log(response)
     let values = response.market_data.sparkline_7d.price
     let labels = []
     let data = []
