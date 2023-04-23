@@ -14,6 +14,7 @@ var _header = document.getElementById("header");
 var _footer = document.getElementById("footer");
 var _sinResultados = document.getElementById("sinResultados");
 var clase;
+var checked;
 var nameSearch = getQueryParams().nameSearch;
 
 
@@ -35,7 +36,9 @@ function displayItems(items)
                     clase = "card_down";
                 }
 
-                _items.innerHTML +=Card(item.id, item.name, item.current_price, item.image, clase) 
+                (idIsInLocalStorage(item.id)) ? checked = 'checked' : checked = '';
+
+                _items.innerHTML +=Card(item.id, item.name, item.current_price, item.image, clase, checked) 
             });
         }
         else
@@ -43,6 +46,19 @@ function displayItems(items)
             _sinResultados.classList.remove("hide");
             _sinResultados.innerHTML = "No se han encontrado resultados para los datos ingresados";
         }
+
+        //Selecciono los elementos que tengan la case fav 
+        //y les agrego el evento del guardado en localstorage con jQuery
+        $('.heart').each(function () {
+            var fav = this;
+            console.log(fav)
+            fav.addEventListener('click', event => {
+                var id = event.target.getAttribute("data-id");
+                console.log(id)
+                updateLocalStorage(id)
+            });
+        });
+
     }
 
   function hideElement(element)
@@ -52,6 +68,32 @@ function displayItems(items)
         element.classList.add("hide")
     }
   }
+
+
+
+function idIsInLocalStorage(id) {
+    var favoritos = JSON.parse(localStorage.getItem("Favoritos") || "[]");
+    const index = favoritos.indexOf(id);
+    return ((index > -1))
+}
+
+
+function updateLocalStorage(id) {
+    //Traigo los elementos del localstorage y sino hay nada trabajo con un array vacio
+    var favoritos = JSON.parse(localStorage.getItem("Favoritos") || "[]");
+    const index = favoritos.indexOf(id);
+    console.log(localStorage.getItem("Favoritos"))
+    console.log(`Buscar: ${id}`)
+    console.log(index);
+    (index > -1) ? // IndexOf retorna -1 en el caso de no encontrar un elemento
+        favoritos.splice(index, 1) : //Elimino el elemento de la lista en el caso de que esté
+        favoritos.push(id); // Añado en el caso que no esté
+
+    favoritos.sort()
+    // Guardo la lista de favoritos
+    localStorage.setItem("Favoritos", JSON.stringify(favoritos));
+}
+
 
 /*const Hola = (result) => {
     console.log("holaaaaa")
@@ -89,7 +131,6 @@ export const IndexRender = () => {
 
     //Busqueda
     document.getElementById("searchButton").addEventListener('click', event => {
-        event.preventDefault()
         //Limpia los select
         selectOrder.selectedIndex  = 0;
         selectCategory.selectedIndex  = 0;
