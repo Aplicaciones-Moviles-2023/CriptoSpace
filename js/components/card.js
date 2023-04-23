@@ -1,4 +1,4 @@
-export const Card = (id, nombre, precio, image, clase) => `
+export const Card = (id, nombre, precio, image, clase, favChecked) => `
     <div class = "card ${clase}">
         <img src = ${image}> 
         <div class="texto">
@@ -12,8 +12,14 @@ export const Card = (id, nombre, precio, image, clase) => `
                 Ver detalle
             </button>
         </div> 
+
+        <!--FavButton-->
+        <input id="${id}-fav" class="heart" data-id = ${id} type="checkbox" ${favChecked}/>
+        <label for="${id}-fav">❤</label>
+        
+        <!--
         <button class="fav" id="${id}" data-id = ${id}> 
             Favorito
-        </button>
+        </button>-->
     </div>
 `

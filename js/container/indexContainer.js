@@ -15,7 +15,7 @@ var _footer = document.getElementById("footer");
 var _sinResultados = document.getElementById("sinResultados");
 var clase;
 var nameSearch = getQueryParams().nameSearch;
-
+var checked;
 
 
 //Funcion encargada de mostrar los items en cards
@@ -32,7 +32,13 @@ function displayItems(items) {
                 clase = "card_down";
             }
 
-            _items.innerHTML += Card(item.id, item.name, item.current_price, item.image, clase)
+            if (idIsInLocalStorage(item.id)) {
+                checked = 'checked'
+            }
+            else {
+                checked = ''
+            }
+            _items.innerHTML += Card(item.id, item.name, item.current_price, item.image, clase, checked)
         });
 
         //var buttons = document.querySelectorAll('.verDetalle');
@@ -216,7 +222,7 @@ export const IndexRender = () => {
 
         //Selecciono los elementos que tengan la case fav 
         //y les agrego el evento del guardado en localstorage con jQuery
-        $('.fav').each(function () {
+        $('.heart').each(function () {
             var fav = this;
             fav.addEventListener('click', event => {
                 var id = event.target.getAttribute("data-id");
@@ -239,4 +245,10 @@ function updateLocalStorage(id) {
     favoritos.sort()
     // Guardo la lista de favoritos
     localStorage.setItem("Favoritos", JSON.stringify(favoritos));
+}
+
+function idIsInLocalStorage(id) {
+    var favoritos = JSON.parse(localStorage.getItem("Favoritos") || "[]");
+    const index = favoritos.indexOf(id);
+    return ((index > -1))
 }
