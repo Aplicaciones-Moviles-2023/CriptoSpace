@@ -13,10 +13,8 @@ var _items = document.getElementById("items");
 var _header = document.getElementById("header");
 var _footer = document.getElementById("footer");
 var _sinResultados = document.getElementById("sinResultados");
-var clase;
+var clase, checked;
 var nameSearch = getQueryParams().nameSearch;
-var checked;
-
 
 //Funcion encargada de mostrar los items en cards
 function displayItems(items) {
@@ -25,19 +23,12 @@ function displayItems(items) {
         _sinResultados.classList.add("hide");
 
         items.forEach(item => {
-            if (item.price_change_24h > 0) {
-                clase = "card_up";
-            }
-            else {
-                clase = "card_down";
-            }
+            //Modifico el color de la carta dependiendo su fluctuacion
+            (item.price_change_24h > 0) ? clase = "card_up" : clase = "card_down";
+            //Modifico el default del checkbox de favoritos dependiendo si esta o no en el
+            //localstorage
+            (idIsInLocalStorage(item.id)) ? checked = 'checked' : checked = '';
 
-            if (idIsInLocalStorage(item.id)) {
-                checked = 'checked'
-            }
-            else {
-                checked = ''
-            }
             _items.innerHTML += Card(item.id, item.name, item.current_price, item.image, clase, checked)
         });
 
@@ -173,14 +164,10 @@ export const IndexRender = () => {
             var selectOrder = document.getElementById("selectOrder");
             var order = selectOrder.value.split(",")
 
-            hideElement(buttonMoreResults)
+            hideElement(buttonMoreResults);
 
-            if (order[0] === "Sin orden") {
-                displayItems(lastItems);
-            }
-            else {
-                displayItems(sortJSON(lastItems, order[0], order[1]));
-            }
+            (order[0] === "Sin orden") ? displayItems(lastItems)
+                : displayItems(sortJSON(lastItems, order[0], order[1]))
         });
 
         //Filtros
@@ -236,12 +223,11 @@ function updateLocalStorage(id) {
     //Traigo los elementos del localstorage y sino hay nada trabajo con un array vacio
     var favoritos = JSON.parse(localStorage.getItem("Favoritos") || "[]");
     const index = favoritos.indexOf(id);
-    if (index > -1) { // IndexOf retorna -1 en el caso de no encontrar un elemento
-        favoritos.splice(index, 1); //Elimino el elemento de la lista en el caso de que esté
-    } else {
-        // Añado en el caso que no esté
-        favoritos.push(id);
-    }
+
+    (index > -1) ? // IndexOf retorna -1 en el caso de no encontrar un elemento
+        favoritos.splice(index, 1) : //Elimino el elemento de la lista en el caso de que esté
+        favoritos.push(id); // Añado en el caso que no esté
+
     favoritos.sort()
     // Guardo la lista de favoritos
     localStorage.setItem("Favoritos", JSON.stringify(favoritos));
