@@ -32,7 +32,7 @@ export const getCriptoAll = (order, callback) =>
     caches.match(key).then(function(response) {
         if (response) {
             response.text().then(function(texto) {
-                console.log('Contenido de archivo almacenado en caché:', JSON.parse(texto));
+                console.log('Recibido desde la Cache');
                 callback(JSON.parse(texto))
         });
         } 
@@ -131,15 +131,13 @@ export const getCryptoById = (cryptoId, order, callback) => {
                     .then(response => response.json())
                     .then(result => {
                         cache[key] = result ;
-                        console.log(cache[key])
-                        console.log('RECIBIDO DESDE LA API');
-                        console.log(result)
+                        console.log('Recibido desde la API');
                         cache.put(key, new Response(JSON.stringify(result)))
                         callback(result)
                     })
                     .catch(error => console.log('error', error));
             });
-            console.log('dato agregado a la cache');
+            console.log('Dato agregado a la cache');
         }
     });
 }
