@@ -3,20 +3,20 @@
 body {
   font-family: 'Noto Sans', sans-serif;
   font-weight: 700;
-  color: #121212;
+  color: #ffffff;
   height: 100vh;
   background-color: #121212;
 }
 
-#root{
+#root {
   min-height: 100vh;
 }
 
-.hide{
+.hide {
   display: none !important;
 }
 
-.success{
+.success {
   display: inline-block;
   text-align: center;
   margin: 1rem;
@@ -27,7 +27,7 @@ body {
   word-wrap: break-word
 }
 
-.error{
+.error {
   display: inline-block;
   text-align: center;
   margin: 1rem;

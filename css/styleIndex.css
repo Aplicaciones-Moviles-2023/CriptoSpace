@@ -1,28 +1,25 @@
-.container{
-  padding: 0.5rem 4rem 1rem 4rem;
+.container {
+  padding: 0.5rem 5% 1rem 5%;
   min-height: 100vh;
 }
 
-.items{
-	padding: 20px;
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
+.items {
+  padding: 3%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 
-.titleCategory{
+.titleCategory {
   display: inline-block;
   margin: 1rem 1rem 1rem 1rem;
   font-size: 25px;
 }
 
 
-
-
-#sinResultados
-{
+#sinResultados {
   padding: 1rem;
   text-align: center;
   float: left;
@@ -31,52 +28,49 @@
   width: 100%;
 }
 
-ion-icon{
+ion-icon {
   padding: 0px 10px 0px 10px;
   font-size: 17px;
 }
- 
-select{
-	cursor: pointer;
+
+select {
+  cursor: pointer;
   padding: 7px 10px;
   height: 42px;
-  outline: 0; 
+  outline: 0;
   border: 0;
-	border-radius: 0;
-	background: #f0f0f0;
-	color: #7b7b7b;
-	font-size: 1em;
-	color: #999;
-	font-family: 'Quicksand', sans-serif;
-	border:2px solid rgba(0,0,0,0.2);
+  border-radius: 0;
+  background: #f0f0f0;
+  color: #7b7b7b;
+  font-size: 1em;
+  color: #999;
+  font-family: 'Quicksand', sans-serif;
+  border: 2px solid rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   position: relative;
   transition: all 0.25s ease;
 }
- 
-.content-select select:hover{
-	background: #B1E8CD;
+
+.content-select select:hover {
+  background: #B1E8CD;
 }
 
-.content-select:hover i{
-	margin-top: 3px;
+.content-select:hover i {
+  margin-top: 3px;
 }
 
-#response
-{
+#response {
   max-width: 16rem;
 }
 
 
-#filters
-{
+#filters {
   float: right;
   color: white;
   padding: 0rem 1rem 0rem 0rem;
 }
 
-#orden
-{
+#orden {
   float: right;
   color: white;
   padding: 0rem 1rem 0rem 0rem;
@@ -85,12 +79,7 @@ select{
 
 
 
-#mas{
-  color:white;
+#mas {
+  color: white;
   float: right;
 }
-
-
-
-
-

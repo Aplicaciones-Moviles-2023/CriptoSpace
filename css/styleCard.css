@@ -2,7 +2,7 @@
   border: 1px solid rgb(0, 217, 100) !important;
   background-color: rgb(20, 43, 31);
 }
-  
+
 .card_down {
   border: 1px solid rgb(255, 0, 0) !important;
   background-color: rgb(39, 12, 12);
@@ -16,13 +16,20 @@ img {
   padding: 10px;
 }
 
-.img{
+.viewMore {
+  color: yellow;
+  text-decoration: none;
+  font-weight: bolder;
+  font-size: 2rem;
+}
+
+.img {
   height: 60%;
 }
 
-.card{
-  word-wrap: break-word;    
-  max-height: 100%; 
+.card {
+  word-wrap: break-word;
+  max-height: 100%;
   color: white;
   border: 1px;
   padding: 0.1rem 1rem 0.2rem 1rem;
@@ -32,42 +39,72 @@ img {
   text-align: center;
 }
 
+.carta {
+  max-height: 100%;
+  min-width: 20%;
+  margin: 2%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 2% 2%;
+  grid-auto-flow: row;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-template-areas:
+    ". . .";
+  border: 1px;
+  padding: 0.1rem 1rem 0.2rem 1rem;
+  margin: 0.2rem 1rem 1rem 1rem;
+  border-radius: 6px;
+  box-shadow: 0 0 20px rgb(0, 0, 0);
+  text-align: center;
+}
 
-.buttonCard{
+
+.buttonCard {
   display: block;
   height: 18%;
   padding: 0px 0px;
 }
 
-.btn{
+.btn {
   cursor: pointer;
   display: inline-block;
-  color:white;
-  background:#3483FA;
-  border:0px;
+  color: white;
+  background: #3483FA;
+  border: 0px;
   border-radius: 7%;
-  width:95%;
+  width: 95%;
   display: block;
   font-size: 15px;
   padding: 0px !important;
 }
 
-.precioCard{
- display: block;
+.precioCard {
+  display: block;
 }
 
 @media only screen and (min-width: 560px) {
-	.card{
-		width: 40%;
-	}
+  .carta {
+    width: 40%;
+    margin: 1%;
+  }
 }
 
-@media screen and (min-width: 768px){
-	.card{
+@media screen and (min-width: 768px) {
+  .carta {
     width: 20%;
-	}
+    transition: 0.2s;
+  }
+
+  .carta:hover {
+    transform: scale(1.1);
+    transition: 0.2s;
+  }
 }
 
-.texto{
-  word-wrap: break-word !important;  
+.texto {
+  word-wrap: break-word !important;
 }
