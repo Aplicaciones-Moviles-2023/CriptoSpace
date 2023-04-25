@@ -7,7 +7,7 @@ export const GetCryptos = (search, callback) => {
         redirect: 'follow'
     };
 
-    fetch(`${urlBase}/search?query=${search}`, requestOptions)
+    fetch(`${urlBase}/search?query=${search}&community_data=false&developer_data=false`, requestOptions)
         .then(response => response.json())
         .then(result => callback(result))
         .catch(error => console.log('error', error));
@@ -35,7 +35,7 @@ export const getCriptoAll = (order, callback) =>
         else {
             console.log('No se encontró el archivo en la caché');
             caches.open('cache').then(function(cache) {
-                var url = `${urlBase}/coins/markets?vs_currency=usd${orderUrl}&per_page=${maxResult}&page=1&sparkline=false`;
+                var url = `${urlBase}/coins/markets?vs_currency=usd${orderUrl}&per_page=${maxResult}&page=1&sparkline=false&community_data=false&developer_data=false`;
 
                 var requestOptions = {
                     method: 'GET',
@@ -59,7 +59,7 @@ export const getCriptoAll = (order, callback) =>
 
 
 export const getCriptoBy = (search, order, callback) => {
-    var url = `${urlBase}/search?query=${search}`;
+    var url = `${urlBase}/search?query=${search}&community_data=false&developer_data=false`;
 
     var requestOptions = {
         method: 'GET',
@@ -111,7 +111,7 @@ export const getCryptoById = (cryptoId, order, callback) => {
         else {
             caches.open('cache').then(function(cache) {
                 
-                var url = `${urlBase}/coins/markets?vs_currency=usd${orderUrl}${urlIds}&per_page=${maxResult}&page=1&sparkline=false`;
+                var url = `${urlBase}/coins/markets?vs_currency=usd${orderUrl}${urlIds}&per_page=${maxResult}&page=1&sparkline=false&community_data=false&developer_data=false`;
                 var requestOptions = {
                     method: 'GET',
                     redirect: 'follow'
@@ -153,7 +153,7 @@ export const getCriptoByCategory = (category, order, callback) => {
         } 
         else {
             caches.open('cache').then(function(cache) {
-                var url = `${urlBase}/coins/markets?vs_currency=usd&category=${category}${orderUrl}&per_page=${maxResult}&page=1&sparkline=false&locale=en`;
+                var url = `${urlBase}/coins/markets?vs_currency=usd&category=${category}${orderUrl}&per_page=${maxResult}&page=1&sparkline=false&locale=en&community_data=false&developer_data=false`;
 
                 var requestOptions = {
                     method: 'GET',
