@@ -1,0 +1,11 @@
+#form {
+    color: white;
+    margin: 2rem;
+}
+
+#btnSend{
+    margin: 1rem;
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+}

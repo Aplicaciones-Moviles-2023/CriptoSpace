@@ -28,27 +28,14 @@ export const Header = () => {
     </nav>
     `
 }
-
-export const Search = () => {
-    //    document.getElementById("form").addEventListener('submit', function(e){
-    //        e.preventDefault();
-    //        document.getElementById("searchButton").click()
-    //    });
-    }
     
-    export const eventSearch = () => {
-        var txtInput = document.getElementById('myForm'); 
-        txtInput.addEventListener('submit', event => {
-            event.preventDefault()
-                document.getElementById("searchButton").click()
-        });
-        //var txtInput = document.getElementById('txtInput'); 
-        //txtInput.addEventListener('keypress', function (e) {
-        //    if (e.key === 'Enter') {
-        //        document.getElementById("searchButton").click()
-        //    }
-        //});
-    }
+export const eventSearch = () => {
+    var txtInput = document.getElementById('myForm'); 
+    txtInput.addEventListener('submit', event => {
+        event.preventDefault()
+            document.getElementById("searchButton").click()
+    });
+}
 
 
 
