@@ -34,36 +34,31 @@
     <header id="header"> </header>
     <main>
         <div class="container">
-            
             <div id="orden">
-                Ordenar por: 
                 <select id="selectOrder">
-                    <option value="current_price,Sin Orden" selected>Sin orden</option>
+                    <option value="current_price,Sin Orden" selected>Ordenar</option>
                     <option value="current_price,desc">Mayor precio</option>
                     <option value=current_price,asc>Menor precio</option>
                 </select>
             </div>
-
             <div id="filters">
-                    Categorias: 
-                    <select id="selectCategory">
-                        <option value="todas" selected>Todas</option>
-                        <option value="stablecoins">Stablecoins</option>
-                        <option value="non-fungible-tokens-nft">NFT</option>
-                    </select>
+                <select id="selectCategory">
+                    <option value="todas" selected>Categorias</option>
+                    <option value="stablecoins">Stablecoins</option>
+                    <option value="non-fungible-tokens-nft">NFT</option>
+                </select>
             </div>
-        
-        <div id="root"> 
-            <div id="sinResultados"> </div>
-            <div id="items" class="items"> </div>
-            <div id="mas"> <button id="MostrarMasButton" class="hide"> Mostrar más... </button></div>
-        </div>
-
+            <div id="root">
+                <div id="sinResultados"> </div>
+                <div id="items" class="items"> </div>
+                <div id="mas"> <button id="MostrarMasButton" class="hide"> Mostrar más... </button></div>
+            </div>
         </div>
     </main>
     <footer id="footer"></footer>
     <script src="../js/libraries/jQuery.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik&callback=iniciarMap"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik&callback=iniciarMap"></script>
     <script type="module" src="../js/initializers/indexInit.js"></script>
 </body>
 

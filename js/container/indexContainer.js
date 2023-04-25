@@ -2,55 +2,44 @@ import { Header, eventSearch } from "../components/header.js"
 import { Footer, startMap } from "../components/footer.js"
 import { Card } from "../components/card.js"
 import { getQueryParams } from "../functions.js"
-import { getCriptoAll, getCriptoBy, getCriptoByCategory, GetCryptos} from "../services/indexServices.js"
+import { getCriptoAll, getCriptoBy, getCriptoByCategory, GetCryptos } from "../services/indexServices.js"
 
 //Funcion encargada de mostrar los items en cards
-function displayItems(items)
-    {
-        _items.innerHTML = "";
-        if(items.length > 0)
-        {   
-            _sinResultados.classList.add("hide");
+function displayItems(items) {
+    _items.innerHTML = "";
+    if (items.length > 0) {
+        _sinResultados.classList.add("hide");
 
-            items.forEach(item => {
-                if(item.price_change_24h>0)
-                {
-                    clase = "card_up";
-                }
-                else{
-                    clase = "card_down";
-                }
+        items.forEach(item => {
+            (item.price_change_24h > 0) ? clase = "card_up" : clase = "card_down";
 
-                (idIsInLocalStorage(item.id)) ? checked = 'checked' : checked = '';
+            (idIsInLocalStorage(item.id)) ? checked = 'checked' : checked = '';
 
-                _items.innerHTML +=Card(item.id, item.name, item.current_price, item.image, clase, checked) 
-            });
-        }
-        else
-        {
-            _sinResultados.classList.remove("hide");
-            _sinResultados.innerHTML = "No se han encontrado resultados para los datos ingresados";
-        }
-
-        //Selecciono los elementos que tengan la case fav 
-        //y les agrego el evento del guardado en localstorage con jQuery
-        $('.heart').each(function () {
-            var fav = this;
-            fav.addEventListener('click', event => {
-                var id = event.target.getAttribute("data-id");
-                updateLocalStorage(id)
-            });
+            _items.innerHTML += Card(item.id, item.name, item.current_price, item.image, clase, checked)
         });
-
+    }
+    else {
+        _sinResultados.classList.remove("hide");
+        _sinResultados.innerHTML = "No se han encontrado resultados para los datos ingresados";
     }
 
-function hideElement(element)
-  {
-    if(!element.classList.contains("hide"))
-    {
+    //Selecciono los elementos que tengan la case fav 
+    //y les agrego el evento del guardado en localstorage con jQuery
+    $('.heart').each(function () {
+        var fav = this;
+        fav.addEventListener('click', event => {
+            var id = event.target.getAttribute("data-id");
+            updateLocalStorage(id)
+        });
+    });
+
+}
+
+function hideElement(element) {
+    if (!element.classList.contains("hide")) {
         element.classList.add("hide")
     }
-  }
+}
 
 function idIsInLocalStorage(id) {
     var favoritos = JSON.parse(localStorage.getItem("Favoritos") || "[]");
@@ -75,13 +64,11 @@ const GetCriptoAll = (result) => {
     displayItems(result)
 }
 
-const GetCriptoBy = (result) =>
-{
+const GetCriptoBy = (result) => {
     displayItems(result);
 }
 
-const GetCriptoByCategory = (result)=>
-{
+const GetCriptoByCategory = (result) => {
     displayItems(result);
 }
 
@@ -95,12 +82,12 @@ var checked;
 var nameSearch = getQueryParams().nameSearch;
 
 export const IndexRender = () => {
-    _header.innerHTML=Header();
-    _footer.innerHTML=Footer();
+    _header.innerHTML = Header();
+    _footer.innerHTML = Footer();
     eventSearch();
     startMap();
 
-    
+
     var selectOrder = document.getElementById("selectOrder");
     var selectCategory = document.getElementById("selectCategory");
     var search = "";
@@ -112,37 +99,28 @@ export const IndexRender = () => {
     //Busqueda
     document.getElementById("searchButton").addEventListener('click', event => {
         //Limpia los select
-        selectOrder.selectedIndex  = 0;
-        selectCategory.selectedIndex  = 0;
+        selectOrder.selectedIndex = 0;
+        selectCategory.selectedIndex = 0;
         order = "";
-        search = document.getElementById("txtInput").value
-        if(search === "")
-        {                
-            displayItems(result);
-        }
-        else
-        {
-            getCriptoBy(search, order, GetCriptoBy)
-        }                
+        search = document.getElementById("txtInput").value;
+        (search === "") ? displayItems(result) : getCriptoBy(search, order, GetCriptoBy)
     });
-
 
     //Categorias
     selectCategory.addEventListener('change', (event) => {
         //Limpia el select de orden y el campo de busqueda
         document.getElementById("txtInput").value = ""
-        selectOrder.selectedIndex  = 0;
+        selectOrder.selectedIndex = 0;
         order = "";
         selectCategory = document.getElementById("selectCategory");
-         
+
         //Ninguna
-        if(selectCategory.value === "todas")
-        {
+        if (selectCategory.value === "todas") {
             category = ""
             getCriptoAll(order, GetCriptoAll)
         }
         //Alguna
-        else{
+        else {
             category = selectCategory.value
             getCriptoByCategory(selectCategory.value, order, GetCriptoByCategory)
         }
@@ -154,42 +132,32 @@ export const IndexRender = () => {
         var selectOrder = document.getElementById("selectOrder");
         var order = selectOrder.value.split(",")
 
-        if(order[1] === "Sin orden" && search === "" && category === "") 
-        {
+        if (order[1] === "Sin orden" && search === "" && category === "") {
             getCriptoAll(order, GetCriptoAll)
         }
-        
-        if(order[1] !== "Sin orden" && search !== "" && category !== "") 
-        {
+
+        if (order[1] !== "Sin orden" && search !== "" && category !== "") {
             order = "";
             displayItems(result)
         }
 
-        if (order[1] !== "Sin orden" && search !== "")
-        {
+        if (order[1] !== "Sin orden" && search !== "") {
             order = order[1]
-            getCriptoBy(search, order,(result)=>
-            {
+            getCriptoBy(search, order, (result) => {
                 displayItems(result);
             })
         }
 
-        if (order[1] !== "Sin orden" && category !== "")
-        {
+        if (order[1] !== "Sin orden" && category !== "") {
             order = order[1]
-            getCriptoByCategory(category, order,(result)=>
-            {
+            getCriptoByCategory(category, order, (result) => {
                 displayItems(result);
             })
         }
 
-        if (order[1] !== "Sin orden" && search == "" && category == "")
-        {
+        if (order[1] !== "Sin orden" && search == "" && category == "") {
             order = order[1]
             getCriptoAll(order, GetCriptoAll)
         }
-        
-        
     });
-
 }
