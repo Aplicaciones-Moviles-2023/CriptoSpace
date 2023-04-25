@@ -1,5 +1,5 @@
 import { Header, eventSearch } from "../components/header.js"
-import { Footer } from "../components/footer.js"
+import { Footer, startMap} from "../components/footer.js"
 import { getQueryParams } from "../functions.js"
 import { getDetailCripto } from "../services/DetailServices.js"
 import { Form } from "../components/form.js"
@@ -13,8 +13,9 @@ export const DetailRender = () => {
     _header.innerHTML=Header();
     _footer.innerHTML=Footer();
     _root.innerHTML = Form();
-
     eventSearch();
+    startMap();
+
     var id = getQueryParams().id
 
     getDetailCripto(id, (response) =>{

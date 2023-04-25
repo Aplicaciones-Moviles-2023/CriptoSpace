@@ -1,5 +1,5 @@
 import { Header, eventSearch } from "../components/header.js"
-import { Footer } from "../components/footer.js"
+import { Footer, startMap } from "../components/footer.js"
 import { Card } from "../components/card.js"
 import { getQueryParams } from "../functions.js"
 import { getCriptoAll, getCriptoBy, getCriptoByCategory, GetCryptos} from "../services/indexServices.js"
@@ -98,6 +98,8 @@ export const IndexRender = () => {
     _header.innerHTML=Header();
     _footer.innerHTML=Footer();
     eventSearch();
+    startMap();
+
     
     var selectOrder = document.getElementById("selectOrder");
     var selectCategory = document.getElementById("selectCategory");
