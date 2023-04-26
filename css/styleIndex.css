@@ -61,7 +61,6 @@ select {
   max-width: 16rem;
 }
 
-
 #filtros {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -74,8 +73,6 @@ select {
   color: white;
   padding: 0rem 1rem 0rem 0rem;
 }
-
-
 
 #selectorder,
 #selectCategory {
