@@ -34,19 +34,22 @@
     <header id="header"> </header>
     <main>
         <div class="container">
-            <div id="orden">
-                <select id="selectOrder">
-                    <option value="current_price,Sin Orden" selected>Ordenar</option>
-                    <option value="current_price,desc">Mayor precio</option>
-                    <option value=current_price,asc>Menor precio</option>
-                </select>
-            </div>
-            <div id="filters">
-                <select id="selectCategory">
-                    <option value="todas" selected>Categorias</option>
-                    <option value="stablecoins">Stablecoins</option>
-                    <option value="non-fungible-tokens-nft">NFT</option>
-                </select>
+            <div id="filtros">
+                <div id="orden">
+                    <select id="selectOrder">
+                        <option value="current_price,Sin Orden" selected>Ordenar</option>
+                        <option value="current_price,desc">Mayor precio</option>
+                        <option value=current_price,asc>Menor precio</option>
+                    </select>
+                </div>
+
+                <div id="filters">
+                    <select id="selectCategory">
+                        <option value="todas" selected>Categorias</option>
+                        <option value="stablecoins">Stablecoins</option>
+                        <option value="non-fungible-tokens-nft">NFT</option>
+                    </select>
+                </div>
             </div>
             <div id="root">
                 <div id="sinResultados"> </div>
