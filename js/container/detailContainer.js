@@ -93,7 +93,7 @@ export const DetailRender = () => {
         var currentPrice = document.getElementById("currentPrice")
         currentPrice.value = response.market_data.current_price.usd
 
-        var coment = document.getElementById("coment")
+        var coment = document.getElementById("messagge")
         var btnSend = document.getElementById("btnSend")
 
 
@@ -102,14 +102,17 @@ export const DetailRender = () => {
 
             var emailTo = document.getElementById("emailTo").value
             if (isEmail(emailTo)) {
-                var message = `${nameCripto.value} ${currentPrice.value} ${coment.value}`
+
+                var date = new Date();
+                var datetime = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+
+                var message = `Criptomoneda: ${nameCripto.value}%0D%0APrecio Actual: ${currentPrice.value} USD%0D%0AFecha y Hora Actual: ${datetime}%0D%0A%0D%0A${coment.value}`
                 btnSend.href = `mailto:${emailTo}?subject=CriptoSpace&body=${message}`
             }
             else {
                 _modal.innerHTML = ""
-                _modal.innerHTML += Modal('Error al validar email');
+                _modal.innerHTML += Modal('El email indicado NO es correcto. Por favor validar');
                 var checkbox = $("#checkModal")[0]
-                console.log(checkbox.checked)
                 checkbox.checked = true;
             }
         });

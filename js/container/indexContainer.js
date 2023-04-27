@@ -2,7 +2,7 @@ import { Header, eventSearch } from "../components/header.js"
 import { Footer, startMap } from "../components/footer.js"
 import { Card } from "../components/card.js"
 import { getQueryParams } from "../functions.js"
-import { getCriptoAll, getCriptoBy, getCriptoByCategory, GetCryptos } from "../services/indexServices.js"
+import { getCriptoAll, getCriptoBy, getCriptoByCategory } from "../services/indexServices.js"
 
 //Funcion encargada de mostrar los items en cards
 function displayItems(items) {
