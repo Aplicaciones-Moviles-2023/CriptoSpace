@@ -23,7 +23,7 @@ export const Header = () => {
                     <label id="searchButton"> <ion-icon name="search-outline"></ion-icon> </label>
                 </form>
             </li>
-            <li><a href="#">Contacto</a></li>
+            <li><a href="history.html">Historial</a></li>
         </ul>
     </nav>
     `
@@ -35,6 +35,12 @@ export const eventSearch = () => {
         event.preventDefault()
             document.getElementById("searchButton").click()
     });
+
+    document.getElementById("searchButton").addEventListener('click', event => {
+        var searchName = document.getElementById("txtInput").value
+        location.href = `index.html?nameSearch=${searchName}`
+    });
+
 }
 
 
