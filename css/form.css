@@ -1,73 +1,98 @@
 #form {
-    color: white;
-    margin: 2rem;
+  color: white;
+  margin: 2rem;
+  max-width: 90%;
 }
 
 #btnSend {
-    margin: 0px;
-    display: block;
-    padding: 12px 24px;
-    max-width: 14rem;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    color: #fff;
-    background-color: #333;
-    border-radius: 6px;
-    box-shadow: 0 3px 0 #000;
-    transition: all 0.3s ease;
-    text-align: center;
+  margin: 0px;
+  display: block;
+  padding: 12px 24px;
+  max-width: 14rem;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #333;
+  border-radius: 6px;
+  box-shadow: 0 3px 0 #000;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+
+
+
+.icon-email {
+  margin: 0px;
+  padding: 0px;
+}
+
+#messagge {
+  height: auto;
+  width: 100%;
+}
+
+.form-input,
+textarea {
+  background-color: #fcfcfc;
+  border: none;
+  color: #000000;
+  padding: 0.5rem;
+  margin-top: 0.4rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+
+
+.dissabled {
+  background-color: #444 !important;
+  border: none;
+  color: #fff;
+  padding: 0.5rem;
+  margin-top: 0.4rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+form h1 {
+  margin-bottom: 1rem;
+}
+
+
+@media only screen and (min-width: 560px) {
+  #messagge {
+    height: auto;
+    max-width: 80%;
   }
-  
+}
+
+@media screen and (min-width: 768px) {
+
+  #messagge {
+    height: auto;
+    max-width: 35%;
+  }
+
   #btnSend:hover {
     background-color: #666;
     box-shadow: 0 3px 0 #333;
     transform: translateY(-3px);
   }
-  
 
-  .icon-email
-  {
-    margin: 0px;
-    padding: 0px;
-  }
-
-
-
-.form-input, textarea {
-    background-color: #fcfcfc;
-    border: none;
-    color: #000000;
-    padding: 0.5rem;
-    margin-top: 0.4rem;
-    border-radius: 30px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    margin-bottom: 20px;
-  }
-
-.form-input:hover, textarea:hover{
+  .form-input:hover,
+  textarea:hover {
     outline: none;
     background-color: #666;
     color: #fff;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px); 
+    transform: translateY(-2px);
+  }
 }
-
-  .dissabled {
-    background-color: #444 !important;
-    border: none;
-    color: #fff;
-    padding: 0.5rem;
-    margin-top: 0.4rem;
-    border-radius: 30px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    margin-bottom: 20px;
-  }
-
-  form h1{
-    margin-bottom: 1rem;
-  }

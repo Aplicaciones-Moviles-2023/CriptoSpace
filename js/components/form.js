@@ -1,6 +1,6 @@
 export const Form = (id, nombre, precio, image, clase, favChecked) => `
 <form id="form">
-    <h1> Compartir a un amigo <h1>
+    <h2> Compartir a un amigo <h2> <br>
     <h3> Criptomoneda:</h3>
     <input disabled type="text" class="form-input dissabled" id="nameCripto">
     <h3>Precio Actual:</h3>

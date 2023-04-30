@@ -1,14 +1,13 @@
 #chart {
     display: block;
     box-sizing: border-box;
-    height: 97px;
-    width: 326px;
+    height: 110% !important;
+    width: 100% !important;
+    max-height: 300px !important;
 }
 
 @media only screen and (min-width: 560px) {
     #chart {
-        display: block;
-        box-sizing: border-box;
         height: 200px;
         width: 326px;
     }
