@@ -1,4 +1,4 @@
-export const Header = () => {
+export const Header = (img, displayImage = 'none') => {
     return `  
     <nav class="nav">
         <input type="checkbox" id="nav_checkbox" class="nav_checkbox">
@@ -16,7 +16,12 @@ export const Header = () => {
         <ul class="nav_menu">
             <li><a href="index.html">
                     Cripto Space
-                </a></li>
+                </a>
+            </li>
+            <li>
+            <span>
+                <img id = 'flag-div' src="${img}" style="display: ${displayImage};" /> </span>
+            </li>
             <li class="search">
                 <form id="myForm">
                     <input type="text" placeholder="Buscar producto" id="txtInput">
@@ -28,19 +33,18 @@ export const Header = () => {
     </nav>
     `
 }
-    
+
 export const eventSearch = () => {
-    var txtInput = document.getElementById('myForm'); 
+    var txtInput = document.getElementById('myForm');
     txtInput.addEventListener('submit', event => {
         event.preventDefault()
-            document.getElementById("searchButton").click()
+        document.getElementById("searchButton").click()
     });
 
     document.getElementById("searchButton").addEventListener('click', event => {
         var searchName = document.getElementById("txtInput").value
         location.href = `index.html?nameSearch=${searchName}`
     });
-
 }
 
 
