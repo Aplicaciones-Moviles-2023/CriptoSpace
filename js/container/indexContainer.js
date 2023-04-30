@@ -33,6 +33,21 @@ function displayItems(items) {
         });
     });
 
+    $('.viewMore').each(function () {
+        var viewMore = this;
+        viewMore.addEventListener('click', event => {
+            var CryptoAAgregar = {
+                id: event.target.getAttribute("id-historial"),
+                nombre: event.target.getAttribute("nombre"),
+                precio: event.target.getAttribute("precio"),
+                image: event.target.getAttribute("image"),
+                clase: event.target.getAttribute("clase"),
+                favChecked: event.target.getAttribute("favChecked")
+            };
+            AgregarAlHistorial(CryptoAAgregar)
+        });
+    });
+
 }
 
 function hideElement(element) {
@@ -58,6 +73,16 @@ function updateLocalStorage(id) {
     favoritos.sort()
     // Guardo la lista de favoritos
     localStorage.setItem("Favoritos", JSON.stringify(favoritos));
+}
+function AgregarAlHistorial(CryptoAAgregar) {
+    var historial = JSON.parse(localStorage.getItem("Historial") || "[]");
+    if (historial.some(item => item.id === CryptoAAgregar.id)) {
+        alert('Existe en el historial')
+    }
+    else {
+        historial.push(CryptoAAgregar);
+    }
+    localStorage.setItem("Historial", JSON.stringify(historial));
 }
 
 const GetCriptoAll = (result) => {
