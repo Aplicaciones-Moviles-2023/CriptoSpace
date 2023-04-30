@@ -56,6 +56,12 @@ function hideElement(element) {
     }
 }
 
+function showElement(element) {
+    if (element.classList.contains("hide")) {
+        element.classList.remove("hide")
+    }
+}
+
 function idIsInLocalStorage(id) {
     var favoritos = JSON.parse(localStorage.getItem("Favoritos") || "[]");
     const index = favoritos.indexOf(id);
@@ -91,6 +97,7 @@ const GetCriptoAll = (result) => {
 }
 
 const GetCriptoBy = (result) => {
+    console.log(result)
     displayItems(result);
 }
 
@@ -103,8 +110,10 @@ var _items = document.getElementById("items");
 var _header = document.getElementById("header");
 var _footer = document.getElementById("footer");
 var _sinResultados = document.getElementById("sinResultados");
+var _btnMas = document.getElementById("bntMas")
 var clase;
 var checked;
+var maxItems = 10;
 var nameSearch = getQueryParams().nameSearch;
 if(nameSearch === undefined)
 {
@@ -123,16 +132,60 @@ export const IndexRender = () => {
     var order = "";
     var category = ""
 
-    console.log(nameSearch)
     if(nameSearch == "")
     {
-        getCriptoAll(order, GetCriptoAll)
+        getCriptoAll(order, -1, GetCriptoAll)
     }
     else{
-        getCriptoBy(nameSearch, "", GetCriptoBy)
+        getCriptoBy(nameSearch, "", -1, GetCriptoBy)
     }
 
+    //Mostrar mas
+    _btnMas.addEventListener('click', event => {
+        hideElement(_btnMas)
+        console.log(`nameSearch = ${nameSearch}`)
+        console.log(`Category = ${category}`)
+        console.log(`Orden = ${order}`)
+
+        if(nameSearch === "")
+        {
+            getCriptoAll(order, maxItems, GetCriptoAll)
+        }
+
+        if(nameSearch !== "")
+        {
+            getCriptoBy(nameSearch, order, maxItems, GetCriptoBy)
+        }
+
+        if(category !== "")
+        {
+            getCriptoByCategory(selectCategory.value, order, maxItems, GetCriptoByCategory)
+        }
+
+
+
+
+
+        else{
+            if(category === "")
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+        //console.log("fin")
+    });
     
+
+
+
+
+
+
+
 
     //Busqueda
     document.getElementById("searchButton").addEventListener('click', event => {
@@ -140,8 +193,9 @@ export const IndexRender = () => {
         selectOrder.selectedIndex = 0;
         selectCategory.selectedIndex = 0;
         order = "";
+        showElement(_btnMas)
         search = document.getElementById("txtInput").value;
-        (search === "") ? displayItems(result) : getCriptoBy(search, order, GetCriptoBy)
+        (search === "") ? displayItems(result) : getCriptoBy(search, order, -1, GetCriptoBy)
     });
 
     //Categorias
@@ -150,28 +204,30 @@ export const IndexRender = () => {
         document.getElementById("txtInput").value = ""
         selectOrder.selectedIndex = 0;
         order = "";
+        showElement(_btnMas)
         selectCategory = document.getElementById("selectCategory");
 
         //Ninguna
         if (selectCategory.value === "todas") {
             category = ""
-            getCriptoAll(order, GetCriptoAll)
+            getCriptoAll(order,-1 ,GetCriptoAll)
         }
         //Alguna
         else {
             category = selectCategory.value
-            getCriptoByCategory(selectCategory.value, order, GetCriptoByCategory)
+            getCriptoByCategory(selectCategory.value, order, -1, GetCriptoByCategory)
         }
     });
 
 
     //ORDEN
     selectOrder.addEventListener('change', (event) => {
+        showElement(_btnMas)
         var selectOrder = document.getElementById("selectOrder");
-        var order = selectOrder.value.split(",")
+        order = selectOrder.value.split(",")
 
         if (order[1] === "Sin orden" && search === "" && category === "") {
-            getCriptoAll(order, GetCriptoAll)
+            getCriptoAll(order, -1,GetCriptoAll)
         }
 
         if (order[1] !== "Sin orden" && search !== "" && category !== "") {
@@ -195,7 +251,7 @@ export const IndexRender = () => {
 
         if (order[1] !== "Sin orden" && search == "" && category == "") {
             order = order[1]
-            getCriptoAll(order, GetCriptoAll)
+            getCriptoAll(order, -1, GetCriptoAll)
         }
     });
 }
