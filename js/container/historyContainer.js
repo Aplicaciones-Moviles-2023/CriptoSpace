@@ -1,7 +1,7 @@
 import { Header, eventSearch } from "../components/header.js"
 import { Footer, startMap } from "../components/footer.js"
 import { Card } from "../components/card.js"
-import { getQueryParams, searchJsonId } from "../functions.js"
+import { getQueryParams , searchJsonId } from "../functions.js"
 import { getCriptoAll, getCriptoBy, getCriptoByCategory } from "../services/indexServices.js"
 
 //Funcion encargada de mostrar los items en cards
@@ -14,7 +14,6 @@ function displayItems(items) {
             (item.price_change_24h > 0) ? clase = "card_up" : clase = "card_down";
 
             (idIsInLocalStorage(item.id)) ? checked = 'checked' : checked = '';
-
             _items.innerHTML += Card(item.id, item.name, item.current_price, item.image, clase, checked)
         });
     }
@@ -50,12 +49,6 @@ function displayItems(items) {
 
 }
 
-function hideElement(element) {
-    if (!element.classList.contains("hide")) {
-        element.classList.add("hide")
-    }
-}
-
 function idIsInLocalStorage(id) {
     var favoritos = JSON.parse(localStorage.getItem("Favoritos") || "[]");
     const index = favoritos.indexOf(id);
@@ -86,116 +79,21 @@ function AgregarAlHistorial(CryptoAAgregar) {
     localStorage.setItem("Historial", JSON.stringify(historial));
 }
 
-const GetCriptoAll = (result) => {
-    displayItems(result)
-}
-
-const GetCriptoBy = (result) => {
-    displayItems(result);
-}
-
-const GetCriptoByCategory = (result) => {
-    displayItems(result);
-}
-
-
 var _items = document.getElementById("items");
 var _header = document.getElementById("header");
 var _footer = document.getElementById("footer");
 var _sinResultados = document.getElementById("sinResultados");
 var clase;
 var checked;
-var nameSearch = getQueryParams().nameSearch;
-if(nameSearch === undefined)
-{
-    nameSearch = ""
-}
 
-export const IndexRender = () => {
+
+export const HistoryRender = () => {
     _header.innerHTML = Header();
     _footer.innerHTML = Footer();
     eventSearch();
     startMap();
-    
-    var selectOrder = document.getElementById("selectOrder");
-    var selectCategory = document.getElementById("selectCategory");
-    var search = "";
-    var order = "";
-    var category = ""
 
-    console.log(nameSearch)
-    if(nameSearch == "")
-    {
-        getCriptoAll(order, GetCriptoAll)
-    }
-    else{
-        getCriptoBy(nameSearch, "", GetCriptoBy)
-    }
+    var historial = JSON.parse(localStorage.getItem("Historial") || "[]");
+    displayItems(historial)
 
-    
-
-    //Busqueda
-    document.getElementById("searchButton").addEventListener('click', event => {
-        //Limpia los select
-        selectOrder.selectedIndex = 0;
-        selectCategory.selectedIndex = 0;
-        order = "";
-        search = document.getElementById("txtInput").value;
-        (search === "") ? displayItems(result) : getCriptoBy(search, order, GetCriptoBy)
-    });
-
-    //Categorias
-    selectCategory.addEventListener('change', (event) => {
-        //Limpia el select de orden y el campo de busqueda
-        document.getElementById("txtInput").value = ""
-        selectOrder.selectedIndex = 0;
-        order = "";
-        selectCategory = document.getElementById("selectCategory");
-
-        //Ninguna
-        if (selectCategory.value === "todas") {
-            category = ""
-            getCriptoAll(order, GetCriptoAll)
-        }
-        //Alguna
-        else {
-            category = selectCategory.value
-            getCriptoByCategory(selectCategory.value, order, GetCriptoByCategory)
-        }
-    });
-
-
-    //ORDEN
-    selectOrder.addEventListener('change', (event) => {
-        var selectOrder = document.getElementById("selectOrder");
-        var order = selectOrder.value.split(",")
-
-        if (order[1] === "Sin orden" && search === "" && category === "") {
-            getCriptoAll(order, GetCriptoAll)
-        }
-
-        if (order[1] !== "Sin orden" && search !== "" && category !== "") {
-            order = "";
-            displayItems(result)
-        }
-
-        if (order[1] !== "Sin orden" && search !== "") {
-            order = order[1]
-            getCriptoBy(search, order, (result) => {
-                displayItems(result);
-            })
-        }
-
-        if (order[1] !== "Sin orden" && category !== "") {
-            order = order[1]
-            getCriptoByCategory(category, order, (result) => {
-                displayItems(result);
-            })
-        }
-
-        if (order[1] !== "Sin orden" && search == "" && category == "") {
-            order = order[1]
-            getCriptoAll(order, GetCriptoAll)
-        }
-    });
 }

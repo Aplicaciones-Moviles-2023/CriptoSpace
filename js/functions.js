@@ -12,3 +12,13 @@ export const getQueryParams = () =>
        urlParams[decode(match[1])] = decode(match[2]);
        return urlParams;
 };
+
+export const searchJsonId = (json, id) =>
+{
+    var indiceEncontrado = json.findIndex(function(item) {
+        return item.id === id;
+    });
+    console.log(indiceEncontrado);
+
+    return indiceEncontrado;
+}

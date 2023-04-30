@@ -96,8 +96,6 @@ export const DetailRender = () => {
         var coment = document.getElementById("messagge")
         var btnSend = document.getElementById("btnSend")
 
-
-
         btnSend.addEventListener('click', event => {
 
             var emailTo = document.getElementById("emailTo").value
@@ -116,15 +114,7 @@ export const DetailRender = () => {
                 checkbox.checked = true;
             }
         });
-
     })
-
-    document.getElementById("searchButton").addEventListener('click', event => {
-        var searchName = document.getElementById("txtInput").value
-        location.href = `index.html?nameSearch=${searchName}`
-    });
-
-
 }
 
 function isEmail(email) {
