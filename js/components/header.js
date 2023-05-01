@@ -1,5 +1,4 @@
-export const Header = (img, displayImage = 'none') => {
-    return `  
+export const Header = () => `  
     <nav class="nav">
         <input type="checkbox" id="nav_checkbox" class="nav_checkbox">
         <label for="nav_checkbox" class="nav_toggle">
@@ -19,8 +18,10 @@ export const Header = (img, displayImage = 'none') => {
                 </a>
             </li>
             <li>
-            <span>
-                <img id = 'flag-div' src="${img}" style="display: ${displayImage};" /> </span>
+            <div id="flag-div">
+
+
+            </div>
             </li>
             <li class="search">
                 <form id="myForm">
@@ -32,7 +33,6 @@ export const Header = (img, displayImage = 'none') => {
         </ul>
     </nav>
     `
-}
 
 export const eventSearch = () => {
     var txtInput = document.getElementById('myForm');
@@ -46,6 +46,3 @@ export const eventSearch = () => {
         location.href = `index.html?nameSearch=${searchName}`
     });
 }
-
-
-

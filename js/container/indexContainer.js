@@ -4,7 +4,7 @@ import { Card } from "../components/card.js"
 import { getQueryParams, searchJsonId } from "../functions.js"
 import { getCriptoAll, getCriptoBy, getCriptoByCategory } from "../services/indexServices.js"
 import { getLocalizationInfo } from "../services/localizationService.js"
-
+import { ImgFlag } from "../components/imgFlag.js"
 //Funcion encargada de mostrar los items en cards
 function displayItems(items) {
     _items.innerHTML = "";
@@ -184,16 +184,17 @@ var nameSearch = getQueryParams().nameSearch;
 if (nameSearch === undefined) {
     nameSearch = ""
 }
-function HeaderRender(info) {
-    _header.innerHTML = Header(info.country_flag, 'visible');
-    eventSearch();
+function FlagRender(info) {
+    document.getElementById('flag-div').innerHTML += ImgFlag(info.country_flag, 'visible');
 }
 
 export const IndexRender = () => {
     setCurrencies();
-    getLocalizationInfo(HeaderRender);
+    _header.innerHTML = Header();
+    eventSearch();
     _footer.innerHTML = Footer();
     startMap();
+    getLocalizationInfo(FlagRender)
 
     var selectOrder = document.getElementById("selectOrder");
     var selectCategory = document.getElementById("selectCategory");
