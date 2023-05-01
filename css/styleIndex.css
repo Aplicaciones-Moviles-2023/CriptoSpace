@@ -38,15 +38,18 @@ select {
   outline: 0;
   border: 0;
   border-radius: 0;
-  background: #f0f0f0;
-  color: #7b7b7b;
+  background: #ffffff00;
+  color: #ffffff;
   font-size: 1em;
-  color: #999;
   font-family: 'Quicksand', sans-serif;
   border: 2px solid rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   position: relative;
   transition: all 0.25s ease;
+}
+
+select option {
+  background: #121212ee;
 }
 
 .content-select select:hover {
@@ -102,4 +105,3 @@ select {
   outline: none;
   box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.8);
 }
-

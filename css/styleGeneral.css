@@ -6,6 +6,11 @@ body {
   color: #ffffff;
   height: 100vh;
   background-color: #121212;
+  background-image: url('../img/spaceMobile.webp');
+  background-size: cover;
+  position: relative;
+  min-height: 100vh;
+
 }
 
 #root {
@@ -42,4 +47,20 @@ button:disabled {
   background-color: #aaaaaa !important;
   color: black;
   cursor: default !important;
+}
+
+#mostrarMas {
+  text-align: center;
+}
+
+@media only screen and (min-width: 560px) {
+  body {
+    background-image: url('../img/spaceMobile.webp');
+  }
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    background-image: url('../img/spaceDesktop.webp');
+  }
 }

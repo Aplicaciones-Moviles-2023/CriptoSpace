@@ -16,7 +16,8 @@ function displayItems(items) {
 
             (idIsInLocalStorage(item.id)) ? checked = 'checked' : checked = '';
 
-            _items.innerHTML += Card(item.id, item.name, item.current_price, item.image, clase, checked)
+            _items.innerHTML += Card(item.id, item.name, item.current_price, item.image,
+                clase, checked, items.actualCurrency.toUpperCase())
         });
     }
     else {
@@ -171,12 +172,17 @@ const setCurrencies = () => {
     ]
     localStorage.setItem("Currencies", JSON.stringify(monedas.sort()));
 }
+const CurrencyExists = (currency) => {
+    var currencies = JSON.parse(localStorage.getItem("Currencies"))
+    return currencies.includes(currency)
+}
 
 var _items = document.getElementById("items");
 var _header = document.getElementById("header");
 var _footer = document.getElementById("footer");
 var _sinResultados = document.getElementById("sinResultados");
 var _btnMas = document.getElementById("bntMas")
+var currency = 'usd';
 var clase;
 var checked;
 var maxItems = 10;
@@ -186,6 +192,7 @@ if (nameSearch === undefined) {
 }
 function FlagRender(info) {
     document.getElementById('flag-div').innerHTML += ImgFlag(info.country_flag, 'visible');
+    currency = info.currency.code.toLowerCase()
 }
 
 export const IndexRender = () => {
@@ -203,6 +210,7 @@ export const IndexRender = () => {
     var category = ""
 
     if (nameSearch == "") {
+
         getCriptoAll(order, -1, GetCriptoAll)
     }
     else {
@@ -228,10 +236,6 @@ export const IndexRender = () => {
             getCriptoByCategory(selectCategory.value, order, maxItems, GetCriptoByCategory)
         }
 
-
-
-
-
         else {
             if (category === "") {
 
@@ -242,14 +246,6 @@ export const IndexRender = () => {
         }
         //console.log("fin")
     });
-
-
-
-
-
-
-
-
 
     //Busqueda
     document.getElementById("searchButton").addEventListener('click', event => {

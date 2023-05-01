@@ -9,7 +9,10 @@
 
 .pie-pagina {
     width: 100%;
-    background-color: #1f1f1f;
+    background-color: #1f1f1fd8;
+
+    bottom: 0;
+    width: 100%;
 }
 
 .pie-pagina .grupo-1 {
