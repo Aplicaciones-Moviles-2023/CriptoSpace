@@ -1,7 +1,7 @@
 import { Header, eventSearch } from "../components/header.js"
 import { Footer, startMap } from "../components/footer.js"
 import { Card } from "../components/card.js"
-import { getQueryParams , searchJsonId } from "../functions.js"
+import { getQueryParams, searchJsonId } from "../functions.js"
 import { getCriptoAll, getCriptoBy, getCriptoByCategory } from "../services/indexServices.js"
 
 //Funcion encargada de mostrar los items en cards
@@ -72,10 +72,10 @@ function AgregarAlHistorial(CryptoAAgregar) {
     var historial = JSON.parse(localStorage.getItem("Historial") || "[]");
     var id = searchJsonId(historial, CryptoAAgregar.id)
     if (id !== -1) {
-        historial.splice(id,1);
+        historial.splice(id, 1);
     }
     historial.unshift(CryptoAAgregar);
-    historial = historial.slice(0,5)
+    historial = historial.slice(0, 5)
     localStorage.setItem("Historial", JSON.stringify(historial));
 }
 
