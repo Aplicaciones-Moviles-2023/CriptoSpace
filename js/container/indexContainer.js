@@ -3,7 +3,8 @@ import { Footer, startMap } from "../components/footer.js"
 import { Card } from "../components/card.js"
 import { getQueryParams, searchJsonId } from "../functions.js"
 import { getCriptoAll, getCriptoBy, getCriptoByCategory } from "../services/indexServices.js"
-import { getLocalizationInfo } from "../services/localizationService.js"
+import { getLocalizationInfo, getCurrencyInfo } from "../services/localizationService.js"
+
 import { ImgFlag } from "../components/imgFlag.js"
 //Funcion encargada de mostrar los items en cards
 function displayItems(items) {
@@ -17,7 +18,7 @@ function displayItems(items) {
             (idIsInLocalStorage(item.id)) ? checked = 'checked' : checked = '';
 
             _items.innerHTML += Card(item.id, item.name, item.current_price, item.image,
-                clase, checked, items.actualCurrency.toUpperCase())
+                clase, checked, currency.toUpperCase())
         });
     }
     else {
@@ -182,11 +183,13 @@ var _header = document.getElementById("header");
 var _footer = document.getElementById("footer");
 var _sinResultados = document.getElementById("sinResultados");
 var _btnMas = document.getElementById("bntMas")
-var currency = 'usd';
+let currency = 'usd';
 var clase;
 var checked;
 var maxItems = 10;
 var nameSearch = getQueryParams().nameSearch;
+
+
 if (nameSearch === undefined) {
     nameSearch = ""
 }
@@ -195,8 +198,11 @@ function FlagRender(info) {
     currency = info.currency.code.toLowerCase()
 }
 
-export const IndexRender = () => {
+export const IndexRender = (currentCurrency) => {
     setCurrencies();
+    if (CurrencyExists(currentCurrency)) {
+        currency = currentCurrency
+    }
     _header.innerHTML = Header();
     eventSearch();
     _footer.innerHTML = Footer();
@@ -210,11 +216,10 @@ export const IndexRender = () => {
     var category = ""
 
     if (nameSearch == "") {
-
-        getCriptoAll(order, -1, GetCriptoAll)
+        getCriptoAll(order, -1, GetCriptoAll, currency)
     }
     else {
-        getCriptoBy(nameSearch, "", -1, GetCriptoBy)
+        getCriptoBy(nameSearch, "", -1, GetCriptoBy, currency)
     }
 
     //Mostrar mas
@@ -225,15 +230,15 @@ export const IndexRender = () => {
         console.log(`Orden = ${order}`)
 
         if (nameSearch === "") {
-            getCriptoAll(order, maxItems, GetCriptoAll)
+            getCriptoAll(order, maxItems, GetCriptoAll, currency)
         }
 
         if (nameSearch !== "") {
-            getCriptoBy(nameSearch, order, maxItems, GetCriptoBy)
+            getCriptoBy(nameSearch, order, maxItems, GetCriptoBy, currency)
         }
 
         if (category !== "") {
-            getCriptoByCategory(selectCategory.value, order, maxItems, GetCriptoByCategory)
+            getCriptoByCategory(selectCategory.value, order, maxItems, GetCriptoByCategory, currency)
         }
 
         else {
@@ -255,7 +260,7 @@ export const IndexRender = () => {
         order = "";
         showElement(_btnMas)
         search = document.getElementById("txtInput").value;
-        (search === "") ? displayItems(result) : getCriptoBy(search, order, -1, GetCriptoBy)
+        (search === "") ? displayItems(result) : getCriptoBy(search, order, -1, GetCriptoBy, currency)
     });
 
     //Categorias
@@ -270,12 +275,12 @@ export const IndexRender = () => {
         //Ninguna
         if (selectCategory.value === "todas") {
             category = ""
-            getCriptoAll(order, -1, GetCriptoAll)
+            getCriptoAll(order, -1, GetCriptoAll, currency)
         }
         //Alguna
         else {
             category = selectCategory.value
-            getCriptoByCategory(selectCategory.value, order, -1, GetCriptoByCategory)
+            getCriptoByCategory(selectCategory.value, order, -1, GetCriptoByCategory, currency)
         }
     });
 
@@ -287,7 +292,7 @@ export const IndexRender = () => {
         order = selectOrder.value.split(",")
 
         if (order[1] === "Sin orden" && search === "" && category === "") {
-            getCriptoAll(order, -1, GetCriptoAll)
+            getCriptoAll(order, -1, GetCriptoAll, currency)
         }
 
         if (order[1] !== "Sin orden" && search !== "" && category !== "") {
