@@ -86,7 +86,7 @@ export const getCriptoBy = (search, order, maxItems, callback, currency = `usd`)
 
 
 
-export const getCryptoById = (cryptoId, order, maxItems, callback, currency = `usd`) => {
+export const getCryptoById = (cryptoId, order, maxItems, callback, currency = `usd`, cacheResult = true) => {
 
     if (maxItems === -1) {
         maxItems = maxResult
@@ -102,7 +102,7 @@ export const getCryptoById = (cryptoId, order, maxItems, callback, currency = `u
 
     //Intenta obtener la respuesta desde la cache
     caches.match(key).then(function (response) {
-        if (response) {
+        if (response && cacheResult) {
             response.text().then(function (texto) {
                 console.log('Recibido desde la Cache:');
                 callback(JSON.parse(texto))
@@ -145,7 +145,6 @@ export const getCriptoByCategory = (category, order, maxItems, callback, currenc
     }
 
     var key = `getCriptoByCategory-${category}-${order}-${maxItems}-${currency}`
-    console.log(key)
 
     //Intenta obtener la respuesta desde la cache
     caches.match(key).then(function (response) {

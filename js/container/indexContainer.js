@@ -2,7 +2,7 @@ import { Header, eventSearch } from "../components/header.js"
 import { Footer, startMap } from "../components/footer.js"
 import { Card } from "../components/card.js"
 import { getQueryParams, searchJsonId } from "../functions.js"
-import { getCriptoAll, getCriptoBy, getCriptoByCategory } from "../services/indexServices.js"
+import { getCriptoAll, getCriptoBy, getCriptoByCategory, getCryptoById} from "../services/indexServices.js"
 import { getLocalizationInfo, CurrencyExists } from "../services/localizationService.js"
 import { ImgFlag } from "../components/imgFlag.js"
 
@@ -78,7 +78,6 @@ function updateLocalStorage(id) {
     (index > -1) ? // IndexOf retorna -1 en el caso de no encontrar un elemento
         favoritos.splice(index, 1) : //Elimino el elemento de la lista en el caso de que esté
         favoritos.push(id); // Añado en el caso que no esté
-
     favoritos.sort()
     // Guardo la lista de favoritos
     localStorage.setItem("Favoritos", JSON.stringify(favoritos));
@@ -101,13 +100,22 @@ const GetCriptoAll = (result) => {
 }
 
 const GetCriptoBy = (result) => {
-    console.log(result)
     displayItems(result);
 }
 
 const GetCriptoByCategory = (result) => {
     displayItems(result);
 }
+
+const GetCriptoById = (result) => {
+    displayItems(result);
+}
+
+function FlagRender(info) {
+    document.getElementById('flag-div').innerHTML += ImgFlag(info.country_flag, 'visible');
+    currency = info.currency.code.toLowerCase()
+}
+
 
 var _items = document.getElementById("items");
 var _header = document.getElementById("header");
@@ -118,14 +126,11 @@ let currency = 'usd';
 var clase;
 var checked;
 var maxItems = 10;
+var favoritos;
 var nameSearch = getQueryParams().nameSearch;
 
 if (nameSearch === undefined) {
     nameSearch = ""
-}
-function FlagRender(info) {
-    document.getElementById('flag-div').innerHTML += ImgFlag(info.country_flag, 'visible');
-    currency = info.currency.code.toLowerCase()
 }
 
 export const IndexRender = (currentCurrency) => {
@@ -154,9 +159,6 @@ export const IndexRender = (currentCurrency) => {
     //Mostrar mas
     _btnMas.addEventListener('click', event => {
         hideElement(_btnMas)
-        console.log(`nameSearch = ${nameSearch}`)
-        console.log(`Category = ${category}`)
-        console.log(`Orden = ${order}`)
 
         if (nameSearch === "") {
             getCriptoAll(order, maxItems, GetCriptoAll, currency)
@@ -169,16 +171,6 @@ export const IndexRender = (currentCurrency) => {
         if (category !== "") {
             getCriptoByCategory(selectCategory.value, order, maxItems, GetCriptoByCategory, currency)
         }
-
-        else {
-            if (category === "") {
-
-            }
-            else {
-
-            }
-        }
-        //console.log("fin")
     });
 
     //Busqueda
@@ -206,10 +198,31 @@ export const IndexRender = (currentCurrency) => {
             category = ""
             getCriptoAll(order, -1, GetCriptoAll, currency)
         }
-        //Alguna
         else {
-            category = selectCategory.value
-            getCriptoByCategory(selectCategory.value, order, -1, GetCriptoByCategory, currency)
+            //Favoritos
+            if(selectCategory.value === "favoritos")
+            {
+                favoritos = JSON.parse(localStorage.getItem("Favoritos") || "[]");
+                selectOrder.selectedIndex = 0;
+
+                if(favoritos.length > 0 )
+                {
+                    hideElement(_btnMas)
+                    document.getElementById("txtInput").value = ""
+                    order = ""
+                    search = ""
+                    getCryptoById(favoritos.join(), order, maxItems, GetCriptoBy, currency, false)
+                }
+                else{
+                    selectCategory.selectedIndex = 0;
+                    alertify.error("No se tienen elementos Favoritos")
+                }
+            }
+            else
+            {//Alguna Categoria
+                category = selectCategory.value
+                getCriptoByCategory(selectCategory.value, order, -1, GetCriptoByCategory, currency)
+            }
         }
     });
 
