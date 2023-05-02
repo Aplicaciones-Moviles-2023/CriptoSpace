@@ -3,6 +3,7 @@ import { Footer, startMap } from "../components/footer.js"
 import { getQueryParams } from "../functions.js"
 import { getDetailCripto } from "../services/DetailServices.js"
 import { Form } from "../components/form.js"
+import { Details } from "../components/details.js"
 import { Modal } from "../components/modal.js"
 
 var _header = document.getElementById("header");
@@ -14,14 +15,15 @@ var _modal = document.getElementById("modal")
 export const DetailRender = () => {
     _header.innerHTML = Header();
     _footer.innerHTML = Footer();
-    _root.innerHTML = Form();
+    _form.innerHTML = Form();
     eventSearch();
     startMap();
 
     var id = getQueryParams().id
 
     getDetailCripto(id, (response) => {
-
+        _root.innerHTML = Details(response);
+        console.log(response)
         let values = response.market_data.sparkline_7d.price
         let labels = []
         let data = []

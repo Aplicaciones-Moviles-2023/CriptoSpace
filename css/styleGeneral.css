@@ -10,8 +10,12 @@ body {
   background-size: cover;
   position: relative;
   min-height: 100vh;
-
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
+
 
 #root {
   min-height: 50vh;
