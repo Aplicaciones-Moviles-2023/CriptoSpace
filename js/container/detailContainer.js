@@ -91,7 +91,7 @@ export const DetailRender = () => {
         nameCripto.value = response.name
 
         var currentPrice = document.getElementById("currentPrice")
-        currentPrice.value = response.market_data.current_price.usd
+        currentPrice.value = response.market_data.current_price.usd+" USD"
 
         var coment = document.getElementById("messagge")
         var btnSend = document.getElementById("btnSend")

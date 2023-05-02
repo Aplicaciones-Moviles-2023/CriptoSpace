@@ -3,9 +3,9 @@ import { Footer, startMap } from "../components/footer.js"
 import { Card } from "../components/card.js"
 import { getQueryParams, searchJsonId } from "../functions.js"
 import { getCriptoAll, getCriptoBy, getCriptoByCategory } from "../services/indexServices.js"
-import { getLocalizationInfo, getCurrencyInfo } from "../services/localizationService.js"
-
+import { getLocalizationInfo, CurrencyExists } from "../services/localizationService.js"
 import { ImgFlag } from "../components/imgFlag.js"
+
 //Funcion encargada de mostrar los items en cards
 function displayItems(items) {
     _items.innerHTML = "";
@@ -17,7 +17,7 @@ function displayItems(items) {
 
             (idIsInLocalStorage(item.id)) ? checked = 'checked' : checked = '';
 
-            _items.innerHTML += Card(item.id, item.name, item.current_price, item.image,
+            _items.innerHTML += Card(item.id, item.name, item.current_price.toFixed(2), item.image,
                 clase, checked, currency.toUpperCase())
         });
     }
@@ -47,7 +47,7 @@ function displayItems(items) {
                 clase: event.target.getAttribute("clase"),
                 checked: event.target.getAttribute("favChecked")
             };
-            AgregarAlHistorial(CryptoAAgregar)
+            AgregarAlHistorial(CryptoAAgregar, currency)
         });
     });
 
@@ -84,12 +84,13 @@ function updateLocalStorage(id) {
     localStorage.setItem("Favoritos", JSON.stringify(favoritos));
 }
 
-function AgregarAlHistorial(CryptoAAgregar) {
+function AgregarAlHistorial(CryptoAAgregar, currency) {
     var historial = JSON.parse(localStorage.getItem("Historial") || "[]");
     var id = searchJsonId(historial, CryptoAAgregar.id)
     if (id !== -1) {
         historial.splice(id, 1);
     }
+    CryptoAAgregar.current_price = `${CryptoAAgregar.current_price} ${currency.toUpperCase()}`
     historial.unshift(CryptoAAgregar);
     historial = historial.slice(0, 5)
     localStorage.setItem("Historial", JSON.stringify(historial));
@@ -107,76 +108,6 @@ const GetCriptoBy = (result) => {
 const GetCriptoByCategory = (result) => {
     displayItems(result);
 }
-const setCurrencies = () => {
-    var monedas = [
-        "btc",
-        "eth",
-        "ltc",
-        "bch",
-        "bnb",
-        "eos",
-        "xrp",
-        "xlm",
-        "link",
-        "dot",
-        "yfi",
-        "usd",
-        "aed",
-        "ars",
-        "aud",
-        "bdt",
-        "bhd",
-        "bmd",
-        "brl",
-        "cad",
-        "chf",
-        "clp",
-        "cny",
-        "czk",
-        "dkk",
-        "eur",
-        "gbp",
-        "hkd",
-        "huf",
-        "idr",
-        "ils",
-        "inr",
-        "jpy",
-        "krw",
-        "kwd",
-        "lkr",
-        "mmk",
-        "mxn",
-        "myr",
-        "ngn",
-        "nok",
-        "nzd",
-        "php",
-        "pkr",
-        "pln",
-        "rub",
-        "sar",
-        "sek",
-        "sgd",
-        "thb",
-        "try",
-        "twd",
-        "uah",
-        "vef",
-        "vnd",
-        "zar",
-        "xdr",
-        "xag",
-        "xau",
-        "bits",
-        "sats"
-    ]
-    localStorage.setItem("Currencies", JSON.stringify(monedas.sort()));
-}
-const CurrencyExists = (currency) => {
-    var currencies = JSON.parse(localStorage.getItem("Currencies"))
-    return currencies.includes(currency)
-}
 
 var _items = document.getElementById("items");
 var _header = document.getElementById("header");
@@ -189,7 +120,6 @@ var checked;
 var maxItems = 10;
 var nameSearch = getQueryParams().nameSearch;
 
-
 if (nameSearch === undefined) {
     nameSearch = ""
 }
@@ -199,7 +129,6 @@ function FlagRender(info) {
 }
 
 export const IndexRender = (currentCurrency) => {
-    setCurrencies();
     if (CurrencyExists(currentCurrency)) {
         currency = currentCurrency
     }
@@ -309,9 +238,7 @@ export const IndexRender = (currentCurrency) => {
 
         if (order[1] !== "Sin orden" && category !== "") {
             order = order[1]
-            getCriptoByCategory(category, order, (result) => {
-                displayItems(result);
-            })
+            getCriptoByCategory(selectCategory.value, order, -1, GetCriptoByCategory, currency)
         }
 
         if (order[1] !== "Sin orden" && search == "" && category == "") {

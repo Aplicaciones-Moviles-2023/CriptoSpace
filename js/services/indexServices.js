@@ -12,7 +12,7 @@ export const getCriptoAll = (order, maxItems, callback, currency = `usd`) => {
         orderUrl = "&order=price_" + order;
     }
 
-    var key = `getCriptoAll-${order}-${maxItems}`
+    var key = `getCriptoAll-${order}-${maxItems}-${currency}`
 
     //Intenta obtener la respuesta desde la cache
     caches.match(key).then(function (response) {
@@ -36,6 +36,7 @@ export const getCriptoAll = (order, maxItems, callback, currency = `usd`) => {
                 fetch(url, requestOptions)
                     .then(response => response.json())
                     .then(result => {
+                        result = result.filter(item => item.current_price !== null);
                         cache[key] = result;
                         console.log('Recibido desde la API');
                         //Guarda el resultado en la cache para proximos usos
@@ -97,7 +98,7 @@ export const getCryptoById = (cryptoId, order, maxItems, callback, currency = `u
     }
     var urlIds = "&ids=" + cryptoId;
 
-    var key = `getCryptoById-${cryptoId}-${order}-${maxItems}`
+    var key = `getCryptoById-${cryptoId}-${order}-${maxItems}-${currency}`
 
     //Intenta obtener la respuesta desde la cache
     caches.match(key).then(function (response) {
@@ -143,7 +144,7 @@ export const getCriptoByCategory = (category, order, maxItems, callback, currenc
         orderUrl = "&order=price_" + order;
     }
 
-    var key = `getCriptoByCategory-${category}-${order}-${maxItems}`
+    var key = `getCriptoByCategory-${category}-${order}-${maxItems}-${currency}`
     console.log(key)
 
     //Intenta obtener la respuesta desde la cache

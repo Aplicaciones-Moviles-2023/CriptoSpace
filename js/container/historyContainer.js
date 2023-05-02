@@ -3,6 +3,8 @@ import { Footer, startMap } from "../components/footer.js"
 import { Card } from "../components/card.js"
 import { getQueryParams, searchJsonId } from "../functions.js"
 import { getCriptoAll, getCriptoBy, getCriptoByCategory } from "../services/indexServices.js"
+import { getLocalizationInfo } from "../services/localizationService.js"
+import { ImgFlag } from "../components/imgFlag.js"
 
 //Funcion encargada de mostrar los items en cards
 function displayItems(items) {
@@ -12,9 +14,9 @@ function displayItems(items) {
 
         items.forEach(item => {
             (item.price_change_24h > 0) ? clase = "card_up" : clase = "card_down";
-
             (idIsInLocalStorage(item.id)) ? checked = 'checked' : checked = '';
-            _items.innerHTML += Card(item.id, item.name, item.current_price, item.image, clase, checked)
+            currency = ""
+            _items.innerHTML += Card(item.id, item.name, item.current_price, item.image, clase, checked, currency)
         });
     }
     else {
@@ -68,6 +70,12 @@ function updateLocalStorage(id) {
     localStorage.setItem("Favoritos", JSON.stringify(favoritos));
 }
 
+function FlagRender(info) {
+    document.getElementById('flag-div').innerHTML += ImgFlag(info.country_flag, 'visible');
+    currency = info.currency.code.toLowerCase()
+}
+
+
 function AgregarAlHistorial(CryptoAAgregar) {
     var historial = JSON.parse(localStorage.getItem("Historial") || "[]");
     var id = searchJsonId(historial, CryptoAAgregar.id)
@@ -85,6 +93,7 @@ var _footer = document.getElementById("footer");
 var _sinResultados = document.getElementById("sinResultados");
 var clase;
 var checked;
+let currency = 'usd';
 
 
 export const HistoryRender = () => {
@@ -92,6 +101,7 @@ export const HistoryRender = () => {
     _footer.innerHTML = Footer();
     eventSearch();
     startMap();
+    getLocalizationInfo(FlagRender)
 
     var historial = JSON.parse(localStorage.getItem("Historial") || "[]");
     displayItems(historial)
