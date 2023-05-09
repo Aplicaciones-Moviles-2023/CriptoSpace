@@ -71,8 +71,8 @@ select option {
   align-content: center;
   justify-items: center;
   align-items: center;
-  padding-left: 4rem;
-  padding-right: 4rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
   color: white;
   padding: 0rem 1rem 0rem 0rem;
 }
@@ -104,4 +104,27 @@ select option {
 #bntMas:focus {
   outline: none;
   box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.8);
+}
+
+
+
+@media screen and (min-width: 768px) {
+  .container {
+    padding: 0.5rem 1rem 1rem 1rem;
+  }
+
+  #root-banner {
+    display: grid;
+
+    grid-template-columns: 10fr 1fr;
+  }
+
+  #banner {
+    background-image: url('../img/banner.jpg');
+    background-size: cover;
+    background-position: 50%;
+    height: 70vh;
+    margin-top: 16%;
+    width: 100%;
+  }
 }
