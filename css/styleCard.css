@@ -68,6 +68,10 @@ img {
   padding: 0px 0px;
 }
 
+.titleCard {
+  font-size: 1.2rem;
+}
+
 .btn {
   cursor: pointer;
   display: inline-block;
@@ -101,6 +105,10 @@ img {
   .carta:hover {
     transform: scale(1.1);
     transition: 0.2s;
+  }
+
+  .titleCard {
+    font-size: 1.3rem;
   }
 }
 

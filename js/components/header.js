@@ -13,7 +13,7 @@ export const Header = () => `
             </svg>
         </label>
         <ul class="nav_menu">
-            <li><a href="index.html">
+            <li><a id="page-title" href="index.html">
                     Cripto Space
                 </a>
             </li>

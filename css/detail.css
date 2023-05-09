@@ -1,28 +1,25 @@
 #root,
 .container {
-    min-height: auto;
+  min-height: auto;
 }
 
 #details {
-    color: white;
-    padding: 2rem;
-    max-width: 90%;
-    margin-left: 2rem;
-  }
+  color: white;
+  padding: 2rem;
+  max-width: 100%;
+}
 
-  #details ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  #details ul li {
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #fff;
-    color: #333;
-    border-radius: 5px;
-  }
+#details ul {
+  list-style: none;
+  margin: 0% !important;
+  padding: 0;
+}
 
-  
-  
+#details ul li {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #ffffffb5;
+  color: #000000;
+  border-radius: 5px;
+}

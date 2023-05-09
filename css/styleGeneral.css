@@ -55,6 +55,7 @@ button:disabled {
 
 #mostrarMas {
   text-align: center;
+  margin-top: 1%;
 }
 
 @media only screen and (min-width: 560px) {

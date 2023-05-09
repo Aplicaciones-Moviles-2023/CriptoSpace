@@ -1,6 +1,6 @@
 #form {
   color: white;
-  margin: 2rem;
+  padding: 2rem;
   max-width: 90%;
 }
 
@@ -20,6 +20,7 @@
   box-shadow: 0 3px 0 #000;
   transition: all 0.3s ease;
   text-align: center;
+  cursor: pointer;
 }
 
 

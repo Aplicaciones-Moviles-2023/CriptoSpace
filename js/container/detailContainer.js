@@ -8,7 +8,7 @@ import { Modal } from "../components/modal.js"
 
 var _header = document.getElementById("header");
 var _footer = document.getElementById("footer");
-var _form = document.getElementById("form");
+var _form = document.getElementById("formulario");
 var _root = document.getElementById("root");
 var _modal = document.getElementById("modal")
 
@@ -93,7 +93,7 @@ export const DetailRender = () => {
         nameCripto.value = response.name
 
         var currentPrice = document.getElementById("currentPrice")
-        currentPrice.value = response.market_data.current_price.usd+" USD"
+        currentPrice.value = response.market_data.current_price.usd + " USD"
 
         var coment = document.getElementById("messagge")
         var btnSend = document.getElementById("btnSend")

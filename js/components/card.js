@@ -1,5 +1,5 @@
 export const Card = (id, nombre, precio, image, clase, favChecked, currency) => `
-    <article class="carta ${clase}">
+    <div class="carta ${clase}">
         <img src = ${image}>
         <div class="texto">
             <label class="titleCard"> ${nombre} </label>
@@ -18,5 +18,5 @@ export const Card = (id, nombre, precio, image, clase, favChecked, currency) => 
                 favChecked = '${favChecked}'>+</a>
             </div>
         </div>
-    </article>
+    </div>
 `
