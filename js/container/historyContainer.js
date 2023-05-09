@@ -101,6 +101,7 @@ export const HistoryRender = () => {
     _footer.innerHTML = Footer();
     eventSearch();
     startMap();
+
     getLocalizationInfo(FlagRender)
 
     var historial = JSON.parse(localStorage.getItem("Historial") || "[]");

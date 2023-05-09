@@ -2,7 +2,7 @@ import { Header, eventSearch } from "../components/header.js"
 import { Footer, startMap } from "../components/footer.js"
 import { Card } from "../components/card.js"
 import { getQueryParams, searchJsonId } from "../functions.js"
-import { getCriptoAll, getCriptoBy, getCriptoByCategory, getCryptoById} from "../services/indexServices.js"
+import { getCriptoAll, getCriptoBy, getCriptoByCategory, getCryptoById } from "../services/indexServices.js"
 import { getLocalizationInfo, CurrencyExists } from "../services/localizationService.js"
 import { ImgFlag } from "../components/imgFlag.js"
 
@@ -142,7 +142,6 @@ export const IndexRender = (currentCurrency) => {
     _footer.innerHTML = Footer();
     startMap();
     getLocalizationInfo(FlagRender)
-
     var selectOrder = document.getElementById("selectOrder");
     var selectCategory = document.getElementById("selectCategory");
     var search = "";
@@ -200,32 +199,28 @@ export const IndexRender = (currentCurrency) => {
         }
         else {
             //Favoritos
-            if(selectCategory.value === "favoritos")
-            {
+            if (selectCategory.value === "favoritos") {
                 favoritos = JSON.parse(localStorage.getItem("Favoritos") || "[]");
                 selectOrder.selectedIndex = 0;
 
-                if(favoritos.length > 0 )
-                {
+                if (favoritos.length > 0) {
                     hideElement(_btnMas)
                     document.getElementById("txtInput").value = ""
                     order = ""
                     search = ""
                     getCryptoById(favoritos.join(), order, maxItems, GetCriptoBy, currency, false)
                 }
-                else{
+                else {
                     selectCategory.selectedIndex = 0;
                     alertify.error("No se tienen elementos Favoritos")
                 }
             }
-            else
-            {//Alguna Categoria
+            else {//Alguna Categoria
                 category = selectCategory.value
                 getCriptoByCategory(selectCategory.value, order, -1, GetCriptoByCategory, currency)
             }
         }
     });
-
 
     //ORDEN
     selectOrder.addEventListener('change', (event) => {

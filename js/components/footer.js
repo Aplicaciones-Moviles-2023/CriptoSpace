@@ -9,7 +9,7 @@ export const Footer = () => {
                     </a>
                 </figure>
             </div>
-            <div id="map"></div>
+            <div id="map" style="height: 180px;"></div>
             <div class="box">
                 <h2>SOBRE NOSOTROS</h2>
                 <p>Somos un equipo de profesionales en el mundo Cripto</p>
@@ -30,16 +30,13 @@ export const Footer = () => {
         </div>
         </footer>
         `
-    }
+}
 
 export const startMap = () => {
-    var coord = {lat:-34.5956145 ,lng: -58.4431949};
-    var map = new google.maps.Map(document.getElementById('map'),{
-      zoom: 10,
-      center: coord
-    });
-    var marker = new google.maps.Marker({
-      position: coord,
-      map: map
-    });
+    var map = L.map('map').setView([-34.92, -57.95], 13);
+    var marker = L.marker([-34.92, -57.95]).addTo(map);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
 }
